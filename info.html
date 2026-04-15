@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5QS+ Assessment – Participant Information</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="app-header">
+      <h1>5QS+ Assessment Platform</h1>
+      <p class="subtitle">Participant Information</p>
+    </div>
+
+    <div class="card">
+      <h2>Please provide your details</h2>
+      <p>This information is collected for research purposes only. All data will be anonymised in any publications.</p>
+
+      <form id="infoForm">
+
+        <label for="name">Full Name <span style="color:var(--danger)">*</span></label>
+        <input type="text" id="name" name="name" required placeholder="Enter your full name" />
+
+        <label for="email">Email Address <span style="color:var(--danger)">*</span></label>
+        <input type="email" id="email" name="email" required placeholder="Enter your email address" />
+
+        <label>Age Range <span style="color:var(--danger)">*</span></label>
+        <div class="radio-group">
+          <label><input type="radio" name="age" value="Under 18" required /><span>Under 18</span></label>
+          <label><input type="radio" name="age" value="18-25" /><span>18–25</span></label>
+          <label><input type="radio" name="age" value="26-35" /><span>26–35</span></label>
+          <label><input type="radio" name="age" value="36-45" /><span>36–45</span></label>
+          <label><input type="radio" name="age" value="46 and above" /><span>46 and above</span></label>
+        </div>
+
+        <label>Gender <span style="color:var(--danger)">*</span></label>
+        <div class="radio-group">
+          <label><input type="radio" name="gender" value="Female" required /><span>Female</span></label>
+          <label><input type="radio" name="gender" value="Male" /><span>Male</span></label>
+          <label><input type="radio" name="gender" value="Non-binary" /><span>Non-binary</span></label>
+          <label><input type="radio" name="gender" value="Prefer not to say" /><span>Prefer not to say</span></label>
+        </div>
+
+        <label>Profession / Role <span style="color:var(--danger)">*</span></label>
+        <div class="radio-group">
+          <label><input type="radio" name="profession" value="Student" required /><span>Student</span></label>
+          <label><input type="radio" name="profession" value="Educator" /><span>Educator</span></label>
+          <label><input type="radio" name="profession" value="Working Professional" /><span>Working Professional</span></label>
+          <label><input type="radio" name="profession" value="Entrepreneur" /><span>Entrepreneur</span></label>
+          <label><input type="radio" name="profession" value="Other" /><span>Other</span></label>
+        </div>
+
+        <label for="institution">Institution / Organisation</label>
+        <input type="text" id="institution" name="institution" placeholder="Enter your institution or organisation (optional)" />
+
+        <label for="program">Academic Program / Department</label>
+        <input type="text" id="program" name="program" placeholder="e.g., MBA, B.Tech Computer Science (optional)" />
+
+        <div class="text-center mt-2">
+          <button type="submit" class="btn btn-primary">Proceed to Assessment</button>
+        </div>
+
+      </form>
+    </div>
+
+    <footer class="app-footer">
+      <p>&copy; 2026 Nanade &amp; Dash &bull; 5QS+ Assessment Platform</p>
+    </footer>
+
+  </div>
+
+  <script>
+    document.getElementById('infoForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var formData = new FormData(this);
+      var userInfo = {};
+      for (var pair of formData.entries()) {
+        userInfo[pair[0]] = pair[1];
+      }
+      userInfo.timestamp = new Date().toISOString();
+      localStorage.setItem('user_info', JSON.stringify(userInfo));
+      window.location.href = 'test.html?test=iq';
+    });
+  </script>
+
+</body>
+</html>

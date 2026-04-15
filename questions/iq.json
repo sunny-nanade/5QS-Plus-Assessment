@@ -1,0 +1,162 @@
+[
+  {
+    "question": "Which number comes next: 3, 6, 9, 12, ?",
+    "options": ["14", "15", "16", "18"],
+    "answer": "15"
+  },
+  {
+    "question": "Find the odd one out: Apple, Mango, Banana, Carrot",
+    "options": ["Apple", "Mango", "Banana", "Carrot"],
+    "answer": "Carrot"
+  },
+  {
+    "question": "If 5 pens cost ₹60, what is the cost of 8 pens?",
+    "options": ["₹96", "₹85", "₹100", "₹80"],
+    "answer": "₹96"
+  },
+  {
+    "question": "Which number completes the series: 2, 4, 8, 16, ?",
+    "options": ["30", "24", "32", "18"],
+    "answer": "32"
+  },
+  {
+    "question": "Rearrange: PETAL is to PLATE as 52641 is to?",
+    "options": ["12456", "54126", "15264", "51426"],
+    "answer": "54126"
+  },
+  {
+    "question": "John is taller than Alan. Alan is taller than Mary. Who is shortest?",
+    "options": ["John", "Alan", "Mary", "Cannot say"],
+    "answer": "Mary"
+  },
+  {
+    "question": "If all Zebras are Horses, and some Horses are Donkeys, then:",
+    "options": [
+      "Some Zebras are definitely Donkeys",
+      "All Zebras are Donkeys",
+      "Some Donkeys are Horses",
+      "Cannot be determined"
+    ],
+    "answer": "Cannot be determined"
+  },
+  {
+    "question": "What is the next letter: D, G, J, M, ?",
+    "options": ["O", "P", "Q", "R"],
+    "answer": "P"
+  },
+  {
+    "question": "Which day follows the day before yesterday if today is Friday?",
+    "options": ["Thursday", "Wednesday", "Tuesday", "Monday"],
+    "answer": "Wednesday"
+  },
+  {
+    "question": "A train runs at 60 km/h. How far does it travel in 2.5 hours?",
+    "options": ["120 km", "135 km", "150 km", "160 km"],
+    "answer": "150 km"
+  },
+  {
+    "question": "How many sides does a hexagon have?",
+    "options": ["4", "5", "6", "8"],
+    "answer": "6"
+  },
+  {
+    "question": "If you rearrange the letters 'CIFAIPC', you get the name of a:",
+    "options": ["Ocean", "Country", "City", "Animal"],
+    "answer": "Ocean"
+  },
+  {
+    "question": "Which is heavier: 1 kg of iron or 1 kg of cotton?",
+    "options": ["Iron", "Cotton", "Equal", "Cannot say"],
+    "answer": "Equal"
+  },
+  {
+    "question": "What is 15% of 200?",
+    "options": ["30", "25", "35", "20"],
+    "answer": "30"
+  },
+  {
+    "question": "What comes next: A, D, G, J, ?",
+    "options": ["M", "L", "N", "K"],
+    "answer": "M"
+  },
+  {
+    "question": "If a book costs ₹240 after 20% discount, what was the original price?",
+    "options": ["₹280", "₹300", "₹320", "₹340"],
+    "answer": "₹300"
+  },
+  {
+    "question": "Opposite of 'False' is?",
+    "options": ["Untrue", "Wrong", "True", "Right"],
+    "answer": "True"
+  },
+  {
+    "question": "Which number is 2 more than double of 7?",
+    "options": ["14", "15", "16", "17"],
+    "answer": "16"
+  },
+  {
+    "question": "Clock shows 3:15. What angle between hands?",
+    "options": ["0°", "7.5°", "90°", "45°"],
+    "answer": "7.5°"
+  },
+  {
+    "question": "If today is Monday, 63 days later will be:",
+    "options": ["Wednesday", "Friday", "Saturday", "Monday"],
+    "answer": "Monday"
+  },
+  {
+    "question": "Find the next: 5, 10, 20, 40, ?",
+    "options": ["60", "70", "80", "100"],
+    "answer": "80"
+  },
+  {
+    "question": "Which is the smallest prime number?",
+    "options": ["0", "1", "2", "3"],
+    "answer": "2"
+  },
+  {
+    "question": "Which is a leap year?",
+    "options": ["2021", "2022", "2023", "2024"],
+    "answer": "2024"
+  },
+  {
+    "question": "Which one is NOT a mammal?",
+    "options": ["Whale", "Dolphin", "Shark", "Bat"],
+    "answer": "Shark"
+  },
+  {
+    "question": "If CAT is coded as DBU, what is the code for DOG?",
+    "options": ["DPE", "EPI", "EPH", "DHF"],
+    "answer": "EPH"
+  },
+  {
+    "question": "What is 9 × 7?",
+    "options": ["63", "56", "72", "49"],
+    "answer": "63"
+  },
+  {
+    "question": "If a clock is rotated 90° clockwise, where will 12 point?",
+    "options": ["3", "6", "9", "12"],
+    "answer": "3"
+  },
+  {
+    "question": "Rearrange: POST is to STOP as 4721 is to?",
+    "options": ["1742", "4721", "1274", "4172"],
+    "answer": "1742"
+  },
+  {
+    "question": "If Monday is the 1st day of the month, what day is the 8th?",
+    "options": ["Monday", "Tuesday", "Sunday", "Wednesday"],
+    "answer": "Monday"
+  },
+  {
+    "question": "How many hours in 3 days?",
+    "options": ["48", "60", "72", "96"],
+    "answer": "72"
+  },
+  {
+    "question": "Which figure does not belong: Circle, Square, Triangle, Cube?",
+    "options": ["Circle", "Square", "Triangle", "Cube"],
+    "answer": "Cube"
+  }
+]

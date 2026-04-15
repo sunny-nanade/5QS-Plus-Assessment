@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5QS+ Assessment – Thank You</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="container" style="display:flex; justify-content:center; align-items:center; min-height:80vh;">
+    <div class="card text-center" style="max-width:600px;">
+      <h1 style="font-size:2rem; margin-bottom:16px;">Thank You!</h1>
+      <p style="font-size:1.1rem;">Your 5QS+ Assessment results have been submitted successfully.</p>
+      <p>
+        A summary of your scores was displayed on the results page. If you need a copy,
+        please contact <a href="mailto:sunny4qs@gmail.com">sunny4qs@gmail.com</a>.
+      </p>
+      <hr />
+      <p style="font-size:0.9rem; color:var(--text-secondary);">
+        Your participation contributes to research on entrepreneurial competency assessment in the digital age.
+      </p>
+      <p style="font-size:0.9rem; color:var(--text-secondary);">
+        Redirecting to home page in <span id="countdown" style="font-weight:700; color:var(--primary);">20</span> seconds...
+      </p>
+      <div class="mt-2">
+        <a href="index.html" class="btn btn-primary">Return to Home</a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="app-footer">
+    <p>&copy; 2026 Nanade &amp; Dash &bull; 5QS+ Assessment Platform</p>
+  </footer>
+
+  <script>
+    var timeLeft = 20;
+    var countdownEl = document.getElementById('countdown');
+    var interval = setInterval(function() {
+      timeLeft--;
+      countdownEl.textContent = timeLeft;
+      if (timeLeft <= 0) {
+        clearInterval(interval);
+        window.location.href = 'index.html';
+      }
+    }, 1000);
+  </script>
+
+</body>
+</html>

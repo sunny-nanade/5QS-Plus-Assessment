@@ -1,0 +1,152 @@
+[
+  {
+    "question": "I reflect deeply on the meaning and purpose of life.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "CET",
+    "reverse": false
+  },
+  {
+    "question": "I am aware of a deeper dimension to my existence.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "TA",
+    "reverse": false
+  },
+  {
+    "question": "I make decisions that align with my spiritual beliefs.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "PMP",
+    "reverse": false
+  },
+  {
+    "question": "I find meaning in difficult or painful situations.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "PMP",
+    "reverse": false
+  },
+  {
+    "question": "I consider the long-term spiritual consequences of my actions.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "PMP",
+    "reverse": false
+  },
+  {
+    "question": "I experience moments of deep connection with all living things.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "TA",
+    "reverse": false
+  },
+  {
+    "question": "I am aware of spiritual energy or presence beyond the material world.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "TA",
+    "reverse": false
+  },
+  {
+    "question": "I strive to live a life of compassion and service to others.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "PMP",
+    "reverse": false
+  },
+  {
+    "question": "I often reflect on the spiritual implications of current events.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "CET",
+    "reverse": false
+  },
+  {
+    "question": "I am aware of my connection to a higher power or universal spirit.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "TA",
+    "reverse": false
+  },
+  {
+    "question": "I can enter deep states of inner stillness or peace.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "CSE",
+    "reverse": false
+  },
+  {
+    "question": "My spiritual beliefs guide my interactions with others.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "PMP",
+    "reverse": false
+  },
+  {
+    "question": "I seek personal transformation through spiritual practices.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "CSE",
+    "reverse": false
+  },
+  {
+    "question": "I believe in a purpose greater than myself.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "CET",
+    "reverse": false
+  },
+  {
+    "question": "I explore philosophical or spiritual questions regularly.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "CET",
+    "reverse": false
+  },
+  {
+    "question": "I believe that my life events are interconnected for a reason.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "CET",
+    "reverse": false
+  },
+  {
+    "question": "I experience a sense of wonder about the universe.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "TA",
+    "reverse": false
+  },
+  {
+    "question": "Spiritual growth is a priority in my personal development.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "CSE",
+    "reverse": false
+  },
+  {
+    "question": "I feel guided by an inner voice or spiritual intuition.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "CSE",
+    "reverse": false
+  },
+  {
+    "question": "I value silence, meditation, or prayer as part of my daily life.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "CSE",
+    "reverse": false
+  },
+  {
+    "question": "I seek answers to life’s ultimate questions.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "CET",
+    "reverse": false
+  },
+  {
+    "question": "I am open to spiritual experiences beyond traditional religion.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "TA",
+    "reverse": false
+  },
+  {
+    "question": "I try to live mindfully in the present moment.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "CSE",
+    "reverse": false
+  },
+  {
+    "question": "I contemplate the nature of the soul or consciousness.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "CET",
+    "reverse": false
+  },
+  {
+    "question": "I believe in a deep inner wisdom that I can access.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "CSE",
+    "reverse": false
+  }
+]

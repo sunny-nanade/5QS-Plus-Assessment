@@ -1,0 +1,177 @@
+[
+  {
+    "question": "I recognize my emotions as they occur.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Emotional Self-Awareness",
+    "composite": "Self-Perception",
+    "reverse": false
+  },
+  {
+    "question": "I find it easy to express how I feel.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Emotional Expression",
+    "composite": "Self-Expression",
+    "reverse": false
+  },
+  {
+    "question": "I understand why I feel the way I do.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Emotional Self-Awareness",
+    "composite": "Self-Perception",
+    "reverse": false
+  },
+  {
+    "question": "I stay calm in emotionally charged situations.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Stress Tolerance",
+    "composite": "Stress Management",
+    "reverse": false
+  },
+  {
+    "question": "I am aware of how my emotions affect others.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Empathy",
+    "composite": "Interpersonal",
+    "reverse": false
+  },
+  {
+    "question": "I am comfortable sharing my feelings with others.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Emotional Expression",
+    "composite": "Self-Expression",
+    "reverse": false
+  },
+  {
+    "question": "I find it easy to resolve conflicts with others.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Interpersonal Relationships",
+    "composite": "Interpersonal",
+    "reverse": false
+  },
+  {
+    "question": "I adapt quickly when emotional circumstances change.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Flexibility",
+    "composite": "Stress Management",
+    "reverse": false
+  },
+  {
+    "question": "I actively listen when others speak about their emotions.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Empathy",
+    "composite": "Interpersonal",
+    "reverse": false
+  },
+  {
+    "question": "I consider others' feelings before making decisions.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Social Responsibility",
+    "composite": "Interpersonal",
+    "reverse": false
+  },
+  {
+    "question": "I have a clear understanding of my emotional triggers.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Emotional Self-Awareness",
+    "composite": "Self-Perception",
+    "reverse": false
+  },
+  {
+    "question": "I respond rather than react when I'm upset.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Impulse Control",
+    "composite": "Decision Making",
+    "reverse": false
+  },
+  {
+    "question": "I recognize emotional patterns in myself.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Self-Regard",
+    "composite": "Self-Perception",
+    "reverse": false
+  },
+  {
+    "question": "I stay composed even under stress.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Stress Tolerance",
+    "composite": "Stress Management",
+    "reverse": false
+  },
+  {
+    "question": "I maintain healthy emotional boundaries.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Self-Regard",
+    "composite": "Self-Perception",
+    "reverse": false
+  },
+  {
+    "question": "I reflect on how my emotions influence my behavior.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Self-Actualization",
+    "composite": "Self-Perception",
+    "reverse": false
+  },
+  {
+    "question": "I am open to receiving emotional feedback.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Reality Testing",
+    "composite": "Decision Making",
+    "reverse": false
+  },
+  {
+    "question": "I am confident in managing emotionally difficult conversations.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Assertiveness",
+    "composite": "Self-Expression",
+    "reverse": false
+  },
+  {
+    "question": "I consider multiple perspectives before reacting emotionally.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Reality Testing",
+    "composite": "Decision Making",
+    "reverse": false
+  },
+  {
+    "question": "I can identify emotional needs in others.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Empathy",
+    "composite": "Interpersonal",
+    "reverse": false
+  },
+  {
+    "question": "I find it easy to ask for emotional support when needed.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Interpersonal Relationships",
+    "composite": "Interpersonal",
+    "reverse": false
+  },
+  {
+    "question": "I stay positive even when faced with emotionally tough situations.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Optimism",
+    "composite": "Stress Management",
+    "reverse": false
+  },
+  {
+    "question": "I understand the link between thoughts and feelings.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Emotional Self-Awareness",
+    "composite": "Self-Perception",
+    "reverse": false
+  },
+  {
+    "question": "I am aware of my tone when speaking during emotional moments.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Impulse Control",
+    "composite": "Decision Making",
+    "reverse": false
+  },
+  {
+    "question": "I remain empathetic even in disagreements.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Empathy",
+    "composite": "Interpersonal",
+    "reverse": false
+  }
+]

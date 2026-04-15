@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5QS+ Assessment – Test Interface</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Test Header -->
+    <div class="test-header" id="testHeader">
+      <div>
+        <div class="test-name" id="test-title">Loading...</div>
+        <div class="test-progress" id="test-progress"></div>
+      </div>
+      <div id="timer">--:--</div>
+    </div>
+
+    <!-- Question Tracker -->
+    <div id="question-tracker"></div>
+
+    <!-- Question Container -->
+    <div class="card" id="question-container">
+      <p>Loading questions...</p>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="btn-group" id="action-buttons">
+      <button class="btn btn-outline" id="prevBtn" style="display:none;">&#9664; Previous</button>
+      <button class="btn btn-primary" id="nextBtn" style="display:none;">Next &#9654;</button>
+      <button class="btn btn-success" id="submitBtn" disabled>Submit Test</button>
+      <button class="btn btn-accent" id="skipBtn">Skip This Test</button>
+      <button class="btn btn-danger" id="exitBtn">End Assessment</button>
+    </div>
+    <p id="submitHint" class="text-center mt-1" style="font-size: 0.85rem; color: var(--text-secondary);">
+      You can submit only after answering all questions.
+    </p>
+
+    <!-- Test Source Attribution -->
+    <footer class="app-footer" id="test-source"></footer>
+
+  </div>
+
+  <script>
+    /* ============================================================
+       5QS+ Enhanced Test Engine (v2.0)
+       ─────────────────────────────────────────────────────────────
+       ENHANCEMENTS OVER ORIGINAL 4QS APP:
+       1. Stratified random sampling — balanced subset from each
+          subscale/composite, so not ALL questions are asked.
+       2. Mixed-format support — AQ has both MCQ + Likert items;
+          engine auto-detects and renders correctly.
+       3. DQ module: all 30 items presented (new research instrument
+          requiring full validation per Chen & Ifenthaler, 2023).
+       4. Reduced completion time (~30 min vs ~58 min).
+       5. Subscale/composite labels shown for transparency.
+       6. Questions always shuffled within selection for fairness.
+       7. Auto-advance after answering for smoother flow.
+
+       Test order: iq -> eq -> aq -> sq -> dq -> stress
+       ============================================================ */
+
+    var container = document.getElementById('question-container');
+    var timerDisplay = document.getElementById('timer');
+    var testTitle = document.getElementById('test-title');
+    var testProgress = document.getElementById('test-progress');
+    var sourceFooter = document.getElementById('test-source');
+    var nextBtn = document.getElementById('nextBtn');
+    var prevBtn = document.getElementById('prevBtn');
+    var submitBtn = document.getElementById('submitBtn');
+    var skipBtn = document.getElementById('skipBtn');
+    var exitBtn = document.getElementById('exitBtn');
+
+    var questions = [];
+    var currentIndex = 0;
+    var responses = [];
+    var testName = '';
+    var timer = null;
+    var timeLeft = 0;
+
+    // ── Test Order ──
+    var testOrder = ['iq', 'eq', 'aq', 'sq', 'dq', 'stress'];
+
+    var testLabels = {
+      iq: 'Intelligence Quotient (IQ)',
+      eq: 'Emotional Quotient (EQ)',
+      aq: 'Adversity Quotient (AQ)',
+      sq: 'Spiritual Quotient (SQ)',
+      dq: 'Digital Quotient (DQ)',
+      stress: 'Perceived Stress'
+    };
+
+    // ── Academic Source Attribution ──
+    var sources = {
+      iq: 'Adapted from the Wonderlic Cognitive Ability Test',
+      eq: 'Based on the EQ-i 2.0 Model (Bar-On); Goleman (1995)',
+      aq: 'Based on the CORE Model — Control, Ownership, Reach, Endurance (Stoltz, 1997)',
+      sq: 'Based on the SISRI-24 Inventory (King, 2008); Zohar & Marshall (2000)',
+      dq: 'Developed for 5QS+ — AI Literacy: Chen & Ifenthaler (2023); Data Analytics: van Laar et al. (2017); Digital Ethics: OECD (2023); Cyber Awareness: Cybersecurity frameworks',
+      stress: 'Based on the Perceived Stress Scale PSS-10 (Cohen, Kamarck & Mermelstein, 1983)'
+    };
+
+    /* ── Duration per test (seconds) ──
+       Reduced from original to match sampled question counts:
+       IQ: 15 Qs ~8 min | EQ: 15 Qs ~5 min | AQ: 15 Qs ~5 min
+       SQ: 15 Qs ~5 min | DQ: 30 Qs ~8 min | Stress: 10 Qs ~3 min
+       Total: ~34 min — practical for students */
+    var durations = {
+      iq: 8 * 60,
+      eq: 5 * 60,
+      aq: 5 * 60,
+      sq: 5 * 60,
+      dq: 8 * 60,
+      stress: 3 * 60
+    };
+
+    /* ── Target question counts per test ──
+       IQ/EQ/AQ/SQ: Stratified sample of ~15 from pool
+       DQ: ALL 30 items (new instrument — full set required for
+           Cronbach's alpha, CR, and CFA validation per paper S5.1)
+       Stress: 10 from 15 (PSS-10 core items) */
+    var questionLimits = {
+      iq: 15,
+      eq: 15,
+      aq: 15,
+      sq: 15,
+      dq: 30,
+      stress: 10
+    };
+
+    // ── Initialisation ──
+    window.onload = function() {
+      var urlParams = new URLSearchParams(window.location.search);
+      testName = urlParams.get('test');
+
+      if (!testName || testOrder.indexOf(testName) === -1) {
+        container.innerHTML = '<p style="color:var(--danger);">Invalid test parameter. Please start from the <a href="index.html">home page</a>.</p>';
+        document.getElementById('action-buttons').style.display = 'none';
+        return;
+      }
+
+      var testIndex = testOrder.indexOf(testName);
+      testTitle.textContent = testLabels[testName] + ' Test';
+      testProgress.textContent = 'Module ' + (testIndex + 1) + ' of ' + testOrder.length +
+        '  |  ' + questionLimits[testName] + ' questions  |  ~' + Math.round(durations[testName] / 60) + ' min';
+      sourceFooter.textContent = sources[testName];
+      timeLeft = durations[testName];
+
+      // Record start time for duration tracking
+      localStorage.setItem(testName + '_start_time', Date.now().toString());
+
+      fetch('questions/' + testName + '.json')
+        .then(function(res) { return res.json(); })
+        .then(function(allQuestions) {
+          questions = selectQuestions(allQuestions, testName);
+
+          // Store the shown questions for scoring later
+          localStorage.setItem(testName + '_questions_shown', JSON.stringify(questions));
+
+          if (!questions.length) {
+            container.innerHTML = '<p style="color:var(--danger);">No questions loaded. Please contact the administrator.</p>';
+            return;
+          }
+
+          responses = new Array(questions.length).fill(null);
+          currentIndex = 0;
+          startTimer();
+          showQuestion();
+          nextBtn.style.display = 'inline-block';
+          prevBtn.style.display = 'inline-block';
+        })
+        .catch(function(err) {
+          container.innerHTML = '<p style="color:var(--danger);">Error loading questions: ' + err.message + '</p>';
+        });
+    };
+
+    /* ============================================================
+       STRATIFIED RANDOM SAMPLING
+       ─────────────────────────────────────────────────────────────
+       For each test, group questions by subscale or composite,
+       then randomly sample N items from each group, ensuring
+       balanced coverage. Final set is shuffled.
+       ============================================================ */
+    function selectQuestions(allQuestions, test) {
+      var limit = questionLimits[test];
+
+      // DQ: use all 30 items (shuffled) — full instrument for validation
+      if (test === 'dq') {
+        return shuffleArray(allQuestions);
+      }
+
+      // IQ: pure random sample (no subscales, MCQ format)
+      if (test === 'iq') {
+        return shuffleArray(allQuestions).slice(0, limit);
+      }
+
+      // Stress: random sample from flat pool
+      if (test === 'stress') {
+        return shuffleArray(allQuestions).slice(0, limit);
+      }
+
+      // EQ / AQ / SQ: stratified sampling by subscale or composite
+      var groupKey = (test === 'eq') ? 'composite' : 'subscale';
+
+      // Group questions by their subscale/composite
+      var groups = {};
+      allQuestions.forEach(function(q) {
+        var key = q[groupKey] || q.subscale || q.composite || 'General';
+        if (!groups[key]) groups[key] = [];
+        groups[key].push(q);
+      });
+
+      // Calculate items per group for balanced representation
+      var groupNames = Object.keys(groups);
+      var perGroup = Math.max(1, Math.floor(limit / groupNames.length));
+
+      // Sample from each group
+      var selected = [];
+      groupNames.forEach(function(gName) {
+        var pool = shuffleArray(groups[gName]);
+        var take = Math.min(perGroup, pool.length);
+        selected = selected.concat(pool.slice(0, take));
+      });
+
+      // Top up if under limit (round-robin from remaining)
+      if (selected.length < limit) {
+        var selectedQuestions = new Set(selected.map(function(q) { return q.question; }));
+        var remaining = shuffleArray(allQuestions).filter(function(q) {
+          return !selectedQuestions.has(q.question);
+        });
+        selected = selected.concat(remaining.slice(0, limit - selected.length));
+      }
+
+      // Trim if over limit, then shuffle final order
+      return shuffleArray(selected.slice(0, limit));
+    }
+
+    // ── Fisher-Yates Shuffle ──
+    function shuffleArray(arr) {
+      var a = arr.slice();
+      for (var i = a.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = a[i]; a[i] = a[j]; a[j] = temp;
+      }
+      return a;
+    }
+
+    // ── Timer ──
+    function startTimer() {
+      updateTimerDisplay();
+      timer = setInterval(function() {
+        timeLeft--;
+        updateTimerDisplay();
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          autoSubmit();
+        }
+      }, 1000);
+    }
+
+    function updateTimerDisplay() {
+      var min = Math.floor(timeLeft / 60);
+      var sec = timeLeft % 60;
+      timerDisplay.textContent = 'Time Left: ' + min + ':' + (sec < 10 ? '0' : '') + sec;
+      if (timeLeft <= 60) {
+        timerDisplay.style.background = '#FFCDD2';
+        timerDisplay.style.color = '#B71C1C';
+      } else if (timeLeft <= 120) {
+        timerDisplay.style.background = '#FFF3E0';
+        timerDisplay.style.color = '#E65100';
+      }
+    }
+
+    // ── Show Question ──
+    function showQuestion() {
+      var q = questions[currentIndex];
+      var optionsHTML = '';
+      var isMCQ = !!(q.options && q.options.length);
+
+      if (isMCQ) {
+        // MCQ format (IQ + some AQ items)
+        q.options.forEach(function(opt) {
+          var checked = responses[currentIndex] === opt ? 'checked' : '';
+          optionsHTML += '<label><input type="radio" name="q' + currentIndex + '" value="' + escapeHtml(opt) + '" ' + checked + ' /><span>' + escapeHtml(opt) + '</span></label>';
+        });
+      } else {
+        // Likert scale (EQ, AQ-Likert, SQ, DQ, Stress)
+        var scale = q.scale || ['Strongly Disagree', 'Disagree', 'Neutral', 'Agree', 'Strongly Agree'];
+        scale.forEach(function(opt) {
+          var checked = responses[currentIndex] === opt ? 'checked' : '';
+          optionsHTML += '<label><input type="radio" name="q' + currentIndex + '" value="' + escapeHtml(opt) + '" ' + checked + ' /><span>' + escapeHtml(opt) + '</span></label>';
+        });
+      }
+
+      // Show item code if available (DQ items have codes like DL1, DA3 etc.)
+      var codeStr = q.code ? ' <span style="color:var(--text-secondary); font-size:0.8rem;">(' + escapeHtml(q.code) + ')</span>' : '';
+
+      // Show subscale/composite badge
+      var dimension = q.composite || q.subscale || '';
+      var dimensionBadge = dimension ? '<span style="font-size:0.75rem; color:var(--primary-light); background:#EDE7F6; padding:2px 8px; border-radius:4px; margin-left:4px;">' + escapeHtml(dimension) + '</span>' : '';
+
+      container.innerHTML =
+        '<div class="question-box">' +
+          '<h3>Question ' + (currentIndex + 1) + ' of ' + questions.length + codeStr + ' ' + dimensionBadge + '</h3>' +
+          '<p>' + escapeHtml(q.question) + '</p>' +
+          '<div class="options">' + optionsHTML + '</div>' +
+        '</div>';
+
+      updateNav();
+      updateSubmitState();
+      renderTracker();
+    }
+
+    function escapeHtml(text) {
+      var div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // ── Navigation ──
+    function updateNav() {
+      prevBtn.style.display = currentIndex > 0 ? 'inline-block' : 'none';
+      nextBtn.style.display = currentIndex < questions.length - 1 ? 'inline-block' : 'none';
+    }
+
+    nextBtn.onclick = function() {
+      if (currentIndex < questions.length - 1) { currentIndex++; showQuestion(); }
+    };
+
+    prevBtn.onclick = function() {
+      if (currentIndex > 0) { currentIndex--; showQuestion(); }
+    };
+
+    // ── Response Capture (with auto-advance) ──
+    container.addEventListener('change', function(e) {
+      if (e.target.name && e.target.name.indexOf('q') === 0) {
+        var idx = parseInt(e.target.name.substring(1), 10);
+        responses[idx] = e.target.value;
+        updateSubmitState();
+        renderTracker();
+
+        // Auto-advance after 350ms for smoother flow
+        if (currentIndex < questions.length - 1) {
+          setTimeout(function() {
+            if (currentIndex < questions.length - 1) {
+              currentIndex++;
+              showQuestion();
+            }
+          }, 350);
+        }
+      }
+    });
+
+    // ── Submit Button State ──
+    function updateSubmitState() {
+      var allAnswered = responses.every(function(r) { return r !== null; });
+      submitBtn.disabled = !allAnswered;
+      if (allAnswered) {
+        submitBtn.classList.add('ready');
+        document.getElementById('submitHint').textContent = 'All questions answered. Ready to submit!';
+        document.getElementById('submitHint').style.color = 'var(--success)';
+      } else {
+        submitBtn.classList.remove('ready');
+        var remaining = responses.filter(function(r) { return r === null; }).length;
+        document.getElementById('submitHint').textContent = remaining + ' question(s) remaining.';
+        document.getElementById('submitHint').style.color = 'var(--text-secondary)';
+      }
+    }
+
+    // ── Question Tracker Grid ──
+    function renderTracker() {
+      var tracker = document.getElementById('question-tracker');
+      var html = '';
+      for (var i = 0; i < questions.length; i++) {
+        var cls = responses[i] !== null ? 'answered' : 'unanswered';
+        if (i === currentIndex) cls += ' current';
+        html += '<button onclick="jumpTo(' + i + ')" class="' + cls + '">' + (i + 1) + '</button>';
+      }
+      tracker.innerHTML = html;
+    }
+
+    window.jumpTo = function(idx) {
+      currentIndex = idx;
+      showQuestion();
+    };
+
+    // ── Submit ──
+    submitBtn.onclick = function() {
+      if (!submitBtn.disabled) submitTest();
+    };
+
+    function submitTest() {
+      var allAnswered = responses.every(function(r) { return r !== null; });
+      if (!allAnswered) {
+        var unanswered = responses.filter(function(r) { return r === null; }).length;
+        var proceed = confirm('You have ' + unanswered + ' unanswered question(s). Submit with partial responses?');
+        if (!proceed) return;
+      }
+      clearInterval(timer);
+      localStorage.setItem(testName + '_responses', JSON.stringify(responses));
+      saveTestDuration();
+      goToNextTest();
+    }
+
+    // Auto-submit on timer expiry
+    function autoSubmit() {
+      localStorage.setItem(testName + '_responses', JSON.stringify(responses));
+      saveTestDuration();
+      alert('Time is up for ' + testLabels[testName] + '. Your responses have been saved. Moving to the next module.');
+      goToNextTest();
+    }
+
+    // ── Skip / Exit ──
+    skipBtn.onclick = function() {
+      if (responses.some(function(r) { return r !== null; })) {
+        localStorage.setItem(testName + '_responses', JSON.stringify(responses));
+      }
+      saveTestDuration();
+      goToNextTest();
+    };
+
+    exitBtn.onclick = function() {
+      if (responses.some(function(r) { return r !== null; })) {
+        localStorage.setItem(testName + '_responses', JSON.stringify(responses));
+      }
+      saveTestDuration();
+      window.location.href = 'results.html';
+    };
+
+    function saveTestDuration() {
+      var startStr = localStorage.getItem(testName + '_start_time');
+      if (startStr) {
+        var elapsed = Math.round((Date.now() - parseInt(startStr, 10)) / 1000);
+        localStorage.setItem(testName + '_duration', elapsed.toString());
+      }
+    }
+
+    function goToNextTest() {
+      var idx = testOrder.indexOf(testName);
+      var next = testOrder[idx + 1];
+      if (next) {
+        window.location.href = 'test.html?test=' + next;
+      } else {
+        window.location.href = 'results.html';
+      }
+    }
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,158 @@
+[
+  {
+    "question": "When I face unexpected challenges, I tend to:",
+    "options": ["Avoid them", "Seek help immediately", "Take charge to solve them", "Panic"],
+    "answer": "Take charge to solve them",
+    "subscale": "Control",
+    "reverse": false
+  },
+  {
+    "question": "When things go wrong, I usually:",
+    "options": ["Blame others", "Take some responsibility", "Analyze my actions", "Take full ownership"],
+    "answer": "Take full ownership",
+    "subscale": "Ownership",
+    "reverse": false
+  },
+  {
+    "question": "When a personal setback happens, I recover:",
+    "scale": ["Very slowly", "With difficulty", "Moderately well", "Very quickly", "Immediately"],
+    "subscale": "Endurance",
+    "reverse": false
+  },
+  {
+    "question": "I believe that tough situations:",
+    "scale": ["Are punishment", "Are unavoidable", "Can be managed", "Can help me grow", "Define who I am"],
+    "subscale": "Ownership",
+    "reverse": false
+  },
+  {
+    "question": "In a crisis, I am able to stay composed.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Control",
+    "reverse": false
+  },
+  {
+    "question": "If I fail at something, I usually:",
+    "options": ["Feel hopeless", "Try once more", "Learn and improve", "Try new strategies"],
+    "answer": "Learn and improve",
+    "subscale": "Endurance",
+    "reverse": false
+  },
+  {
+    "question": "I take responsibility for situations even when not entirely my fault.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Ownership",
+    "reverse": false
+  },
+  {
+    "question": "When something bad happens, I think it will affect:",
+    "options": ["My whole life", "Only that area", "Everything I do", "Nothing at all"],
+    "answer": "Only that area",
+    "subscale": "Reach",
+    "reverse": false
+  },
+  {
+    "question": "When things get hard, I tend to:",
+    "options": ["Give up", "Take a break", "Ask for help", "Persist"],
+    "answer": "Persist",
+    "subscale": "Endurance",
+    "reverse": false
+  },
+  {
+    "question": "I believe I have control over how I react to problems.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Control",
+    "reverse": false
+  },
+  {
+    "question": "When I take ownership, I feel:",
+    "scale": ["Helpless", "Embarrassed", "Neutral", "Empowered", "Inspired"],
+    "subscale": "Ownership",
+    "reverse": false
+  },
+  {
+    "question": "I can distinguish between short-term and long-term problems.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Reach",
+    "reverse": false
+  },
+  {
+    "question": "When I fail, I:",
+    "options": ["Feel defeated", "Blame the system", "Look for solutions", "Learn and adapt"],
+    "answer": "Learn and adapt",
+    "subscale": "Endurance",
+    "reverse": false
+  },
+  {
+    "question": "I reflect on how I contributed to a failure.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Ownership",
+    "reverse": false
+  },
+  {
+    "question": "I bounce back from tough times with increased motivation.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Endurance",
+    "reverse": false
+  },
+  {
+    "question": "I can stay focused even when multiple things go wrong.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Control",
+    "reverse": false
+  },
+  {
+    "question": "Even when others quit, I continue.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Endurance",
+    "reverse": false
+  },
+  {
+    "question": "I believe adversity makes me stronger.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Endurance",
+    "reverse": false
+  },
+  {
+    "question": "I don't let one problem affect other areas of my life.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Reach",
+    "reverse": false
+  },
+  {
+    "question": "I can emotionally distance myself from setbacks when needed.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Reach",
+    "reverse": false
+  },
+  {
+    "question": "When facing adversity, I feel in control of the situation.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Control",
+    "reverse": false
+  },
+  {
+    "question": "I take initiative to fix things instead of waiting.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Ownership",
+    "reverse": false
+  },
+  {
+    "question": "I learn lessons from each hardship I go through.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Ownership",
+    "reverse": false
+  },
+  {
+    "question": "I understand the difference between what I can and cannot control.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Control",
+    "reverse": false
+  },
+  {
+    "question": "I take ownership of my emotions and reactions.",
+    "scale": ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"],
+    "subscale": "Ownership",
+    "reverse": false
+  }
+]

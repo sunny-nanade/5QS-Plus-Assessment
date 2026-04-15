@@ -1,0 +1,78 @@
+[
+  {
+    "question": "In the last month, how often have you felt upset because something happened unexpectedly?",
+    "scale": ["Never", "Rarely", "Sometimes", "Often", "Very Often"],
+    "reverse": false
+  },
+  {
+    "question": "In the last month, how often have you felt that you were unable to control the important things in your life?",
+    "scale": ["Never", "Rarely", "Sometimes", "Often", "Very Often"],
+    "reverse": false
+  },
+  {
+    "question": "In the last month, how often have you felt nervous and stressed?",
+    "scale": ["Never", "Rarely", "Sometimes", "Often", "Very Often"],
+    "reverse": false
+  },
+  {
+    "question": "In the last month, how often have you felt confident about your ability to handle personal problems?",
+    "scale": ["Never", "Rarely", "Sometimes", "Often", "Very Often"],
+    "reverse": true
+  },
+  {
+    "question": "In the last month, how often have you felt that things were going your way?",
+    "scale": ["Never", "Rarely", "Sometimes", "Often", "Very Often"],
+    "reverse": true
+  },
+  {
+    "question": "In the last month, how often have you found that you could not cope with all the things that you had to do?",
+    "scale": ["Never", "Rarely", "Sometimes", "Often", "Very Often"],
+    "reverse": false
+  },
+  {
+    "question": "In the last month, how often have you been able to control irritations in your life?",
+    "scale": ["Never", "Rarely", "Sometimes", "Often", "Very Often"],
+    "reverse": true
+  },
+  {
+    "question": "In the last month, how often have you felt that you were on top of things?",
+    "scale": ["Never", "Rarely", "Sometimes", "Often", "Very Often"],
+    "reverse": true
+  },
+  {
+    "question": "In the last month, how often have you been angered because of things that were outside of your control?",
+    "scale": ["Never", "Rarely", "Sometimes", "Often", "Very Often"],
+    "reverse": false
+  },
+  {
+    "question": "In the last month, how often have you felt difficulties were piling up so high that you could not overcome them?",
+    "scale": ["Never", "Rarely", "Sometimes", "Often", "Very Often"],
+    "reverse": false
+  },
+
+  {
+    "question": "In the last month, how often have you felt overwhelmed by responsibilities?",
+    "scale": ["Never", "Rarely", "Sometimes", "Often", "Very Often"],
+    "reverse": false
+  },
+  {
+    "question": "In the last month, how often have you found it hard to concentrate because of stress?",
+    "scale": ["Never", "Rarely", "Sometimes", "Often", "Very Often"],
+    "reverse": false
+  },
+  {
+    "question": "In the last month, how often have you felt like you had no one to turn to?",
+    "scale": ["Never", "Rarely", "Sometimes", "Often", "Very Often"],
+    "reverse": false
+  },
+  {
+    "question": "In the last month, how often have you worried about things beyond your control?",
+    "scale": ["Never", "Rarely", "Sometimes", "Often", "Very Often"],
+    "reverse": false
+  },
+  {
+    "question": "In the last month, how often have you felt physically tired due to emotional stress?",
+    "scale": ["Never", "Rarely", "Sometimes", "Often", "Very Often"],
+    "reverse": false
+  }
+]

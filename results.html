@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5QS+ Assessment – Results</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="app-header">
+      <h1>5QS+ Assessment Results</h1>
+      <p class="subtitle">Your Entrepreneurial Competency Profile</p>
+    </div>
+
+    <!-- Participant Info -->
+    <div class="card" id="userCard">
+      <h2>Participant Information</h2>
+      <div id="userDetails"></div>
+    </div>
+
+    <!-- Score Summary Grid -->
+    <div class="card results-card">
+      <h2>Score Summary</h2>
+      <div class="score-grid" id="scoreGrid"></div>
+
+      <!-- Final 5QS+ Score -->
+      <div class="final-score" id="finalScoreCard" style="display:none;">
+        <div class="label">Final 5QS+ Composite Score</div>
+        <div class="value" id="finalScoreValue">--</div>
+        <div class="label">/ 100</div>
+      </div>
+    </div>
+
+    <!-- Radar Chart -->
+    <div class="card">
+      <h2 class="text-center">Competency Radar Profile</h2>
+      <p class="text-center" style="font-size:0.85rem;">6-axis visualisation: IQ, EQ, AQ, SQ, DQ, Stress</p>
+      <div class="chart-container">
+        <canvas id="radarChart"></canvas>
+      </div>
+    </div>
+
+    <!-- DQ Composite Breakdown -->
+    <div class="card" id="dqBreakdownCard" style="display:none;">
+      <div class="composite-section">
+        <h3>Digital Quotient (DQ) – Sub-Dimension Breakdown</h3>
+        <p style="font-size:0.85rem; color:var(--text-secondary);">
+          Based on 30 items across 4 sub-dimensions (Chen &amp; Ifenthaler, 2023; van Laar et al., 2017; OECD, 2023)
+        </p>
+        <div id="dqComposites"></div>
+      </div>
+    </div>
+
+    <!-- EQ Composite Breakdown -->
+    <div class="card" id="eqBreakdownCard" style="display:none;">
+      <div class="composite-section">
+        <h3>Emotional Quotient (EQ) – Composite Breakdown</h3>
+        <p style="font-size:0.85rem; color:var(--text-secondary);">Based on EQ-i 2.0 Model (Bar-On)</p>
+        <div id="eqComposites"></div>
+      </div>
+    </div>
+
+    <!-- AQ Composite Breakdown -->
+    <div class="card" id="aqBreakdownCard" style="display:none;">
+      <div class="composite-section">
+        <h3>Adversity Quotient (AQ) – Composite Breakdown</h3>
+        <p style="font-size:0.85rem; color:var(--text-secondary);">Based on CORE Model (Stoltz, 1997)</p>
+        <div id="aqComposites"></div>
+      </div>
+    </div>
+
+    <!-- SQ Composite Breakdown -->
+    <div class="card" id="sqBreakdownCard" style="display:none;">
+      <div class="composite-section">
+        <h3>Spiritual Quotient (SQ) – Composite Breakdown</h3>
+        <p style="font-size:0.85rem; color:var(--text-secondary);">Based on SISRI-24 (King, 2008)</p>
+        <div id="sqComposites"></div>
+      </div>
+    </div>
+
+    <!-- Stress Composite Breakdown -->
+    <div class="card" id="stressBreakdownCard" style="display:none;">
+      <div class="composite-section">
+        <h3>Perceived Stress – Breakdown</h3>
+        <p style="font-size:0.85rem; color:var(--text-secondary);">Based on PSS-10 (Cohen et al., 1983)</p>
+        <div id="stressComposites"></div>
+      </div>
+    </div>
+
+    <!-- Question-wise Detail Breakdown -->
+    <div class="card" id="questionDetailCard" style="display:none;">
+      <h2>Question-wise Analysis</h2>
+      <p style="font-size:0.85rem; color:var(--text-secondary);">
+        Expand each test to see your response and score for every question.
+        Items marked <span class="importance-tag anchor">Anchor</span> are critical construct-defining items.
+        Items marked <span class="importance-tag supplementary">Supplementary</span> provide supporting data.
+      </p>
+      <div id="questionDetails"></div>
+    </div>
+
+    <!-- Score Interpretation Bands -->
+    <div class="card" id="interpretationCard" style="display:none;">
+      <h2>Score Interpretation</h2>
+      <div id="interpretationBands"></div>
+    </div>
+
+    <!-- Research Context Card -->
+    <div class="card" style="background: var(--bg);">
+      <h3>Interpretation Guide</h3>
+      <p style="font-size:0.85rem;">
+        <strong>Scores range from 0 to 100</strong> for each dimension. Higher scores indicate stronger competency,
+        except for Stress where higher scores indicate higher perceived stress levels.
+      </p>
+      <p style="font-size:0.85rem;">
+        The <strong>5QS+ Composite Score</strong> averages IQ, EQ, AQ, SQ, and DQ (Stress is reported separately).
+        This composite reflects overall entrepreneurial readiness as conceptualised in the 5QS+ framework
+        (Nanade &amp; Dash, 2026).
+      </p>
+      <p style="font-size:0.85rem;">
+        <strong>DQ sub-dimensions</strong>: AI Literacy (DL1-DL8), Data Analytics (DA1-DA8), Digital Ethics (DE1-DE7),
+        and Cyber Awareness (CA1-CA7). Items measured on 5-point Likert scale (1 = Strongly Disagree to 5 = Strongly Agree).
+      </p>
+      <table style="width:100%; font-size:0.82rem; border-collapse:collapse; margin-top:12px;">
+        <thead>
+          <tr style="background:var(--bg-alt);">
+            <th style="padding:8px; text-align:left; border-bottom:2px solid var(--border);">Range</th>
+            <th style="padding:8px; text-align:left; border-bottom:2px solid var(--border);">Level</th>
+            <th style="padding:8px; text-align:left; border-bottom:2px solid var(--border);">Interpretation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="padding:6px 8px; border-bottom:1px solid var(--border-light);"><strong>81-100</strong></td><td style="padding:6px 8px; border-bottom:1px solid var(--border-light); color:var(--success);font-weight:bold;">Excellent</td><td style="padding:6px 8px; border-bottom:1px solid var(--border-light);">Strong competency; well-positioned for entrepreneurial success</td></tr>
+          <tr><td style="padding:6px 8px; border-bottom:1px solid var(--border-light);"><strong>61-80</strong></td><td style="padding:6px 8px; border-bottom:1px solid var(--border-light); color:var(--accent);font-weight:bold;">Good</td><td style="padding:6px 8px; border-bottom:1px solid var(--border-light);">Solid foundation with room for targeted development</td></tr>
+          <tr><td style="padding:6px 8px; border-bottom:1px solid var(--border-light);"><strong>41-60</strong></td><td style="padding:6px 8px; border-bottom:1px solid var(--border-light); color:var(--warning);font-weight:bold;">Moderate</td><td style="padding:6px 8px; border-bottom:1px solid var(--border-light);">Average competency; focused training recommended</td></tr>
+          <tr><td style="padding:6px 8px;"><strong>0-40</strong></td><td style="padding:6px 8px; color:var(--danger);font-weight:bold;">Developing</td><td style="padding:6px 8px;">Requires significant development in this dimension</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Sync Status -->
+    <div id="sync-status"></div>
+
+    <!-- Actions -->
+    <div class="btn-group mt-2">
+      <button class="btn btn-primary" onclick="window.print();">Print / Save PDF</button>
+      <a href="index.html" class="btn btn-outline">Take Again</a>
+    </div>
+
+    <footer class="app-footer">
+      <p>&copy; 2026 Nanade &amp; Dash &bull; 5QS+ Assessment Platform &bull;
+        <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="noopener">CC BY-NC-ND 4.0</a>
+      </p>
+    </footer>
+
+  </div>
+
+  <script>
+    /* ============================================================
+       5QS+ Results Engine
+       - IQ: objective MCQ scoring
+       - EQ/AQ/SQ/DQ/Stress: Likert composite scoring
+       - 6-axis radar chart (Chart.js)
+       - Google Sheets submission
+       ============================================================ */
+
+    var testOrder = ['iq', 'eq', 'aq', 'sq', 'dq', 'stress'];
+    var testLabels = { iq: 'IQ', eq: 'EQ', aq: 'AQ', sq: 'SQ', dq: 'DQ', stress: 'Stress' };
+    var scores = {};
+    var meta = {};
+    var compositeData = {};
+
+    // ── User Info Display ──
+    var userInfo = JSON.parse(localStorage.getItem('user_info') || '{}');
+    document.getElementById('userDetails').innerHTML =
+      '<p><strong>Name:</strong> ' + escapeHtml(userInfo.name || 'N/A') + '</p>' +
+      '<p><strong>Email:</strong> ' + escapeHtml(userInfo.email || 'N/A') + '</p>' +
+      '<p><strong>Age:</strong> ' + escapeHtml(userInfo.age || 'N/A') + '</p>' +
+      '<p><strong>Gender:</strong> ' + escapeHtml(userInfo.gender || 'N/A') + '</p>' +
+      '<p><strong>Profession:</strong> ' + escapeHtml(userInfo.profession || 'N/A') + '</p>' +
+      (userInfo.institution ? '<p><strong>Institution:</strong> ' + escapeHtml(userInfo.institution) + '</p>' : '') +
+      (userInfo.program ? '<p><strong>Program:</strong> ' + escapeHtml(userInfo.program) + '</p>' : '');
+
+    function escapeHtml(text) {
+      var div = document.createElement('div');
+      div.textContent = text || '';
+      return div.innerHTML;
+    }
+
+    // ── IQ Scoring (Objective) ──
+    function scoreIQ(responses) {
+      var shownQuestions = JSON.parse(localStorage.getItem('iq_questions_shown') || '[]');
+      var correct = 0;
+      var attempted = 0;
+      responses.forEach(function(r, i) {
+        if (r !== null && r !== '') {
+          attempted++;
+          var userAns = (r || '').trim().toLowerCase();
+          var correctAns = ((shownQuestions[i] || {}).answer || '').trim().toLowerCase();
+          if (userAns === correctAns) correct++;
+        }
+      });
+      meta.iq = { attempted: attempted, correct: correct, total: shownQuestions.length };
+      return attempted ? Math.round((correct / attempted) * 100) : 0;
+    }
+
+    // ── Mixed Scoring (handles Likert + MCQ within same test) ──
+    // AQ has both MCQ (options+answer) and Likert (scale) items.
+    // EQ/SQ/DQ/Stress are pure Likert. Engine auto-detects format.
+    function scoreMixed(testKey, questionsData, responses) {
+      var composites = {};
+      var attempts = {};
+      var totalItems = {};
+
+      responses.forEach(function(r, i) {
+        if (!r || !questionsData[i]) return;
+        var q = questionsData[i];
+        // Use composite first, fall back to subscale (AQ/SQ use subscale)
+        var comp = q.composite || q.subscale || 'General';
+        var reverse = q.reverse || false;
+        var itemScore = 0;
+        var maxItemScore = 5;
+
+        // Detect format: MCQ (has options + answer) vs Likert (has scale)
+        var isMCQ = !!(q.options && q.options.length && q.answer);
+
+        if (isMCQ) {
+          // MCQ scoring: correct = 5, wrong = 1
+          maxItemScore = 5;
+          var userAns = (r || '').trim().toLowerCase();
+          var correctAns = (q.answer || '').trim().toLowerCase();
+          itemScore = (userAns === correctAns) ? 5 : 1;
+        } else {
+          // Likert scoring: map response text to 1-5
+          var likertOptions = ['Strongly Disagree', 'Disagree', 'Neutral', 'Agree', 'Strongly Agree'];
+          var freqOptions = ['Never', 'Rarely', 'Sometimes', 'Often', 'Very Often'];
+          // AQ endurance scale
+          var aqEndurance = ['Very slowly', 'With difficulty', 'Moderately well', 'Very quickly', 'Immediately'];
+          var val = likertOptions.indexOf(r);
+          if (val === -1) val = freqOptions.indexOf(r);
+          if (val === -1) val = aqEndurance.indexOf(r);
+          if (val === -1) {
+            // Try matching against the question's own scale
+            if (q.scale) val = q.scale.indexOf(r);
+          }
+          if (val === -1) return; // unrecognised response
+          val = val + 1; // 1-5 scale
+          itemScore = reverse ? (6 - val) : val;
+        }
+
+        composites[comp] = (composites[comp] || 0) + itemScore;
+        attempts[comp] = (attempts[comp] || 0) + 1;
+      });
+
+      // Count total items per composite from shown questions
+      questionsData.forEach(function(q) {
+        var comp = q.composite || q.subscale || 'General';
+        totalItems[comp] = (totalItems[comp] || 0) + 1;
+      });
+
+      var totalScore = 0;
+      var count = 0;
+      var compResults = {};
+
+      for (var comp in composites) {
+        var maxPossible = attempts[comp] * 5;
+        var pct = maxPossible ? Math.round((composites[comp] / maxPossible) * 100) : 0;
+        compResults[comp] = {
+          score: composites[comp],
+          max: maxPossible,
+          percent: pct,
+          items: attempts[comp],
+          totalItems: totalItems[comp] || attempts[comp]
+        };
+        totalScore += pct;
+        count++;
+      }
+
+      compositeData[testKey] = compResults;
+      meta[testKey] = { attempted: responses.filter(function(r) { return r; }).length };
+
+      return count ? Math.round(totalScore / count) : 0;
+    }
+
+    // ── Render Composite Bars ──
+    function renderCompositeBars(containerId, data) {
+      var html = '';
+      for (var comp in data) {
+        html +=
+          '<div class="composite-bar">' +
+            '<div class="name">' + escapeHtml(comp) + '</div>' +
+            '<div class="bar-track"><div class="bar-fill" style="width:' + data[comp].percent + '%;"></div></div>' +
+            '<div class="pct">' + data[comp].percent + '%</div>' +
+          '</div>';
+      }
+      document.getElementById(containerId).innerHTML = html;
+    }
+
+    // ── Question Importance Classification ──
+    // Anchor items: construct-defining, psychometrically critical
+    // Supplementary items: supporting but interchangeable
+    var importanceMap = {
+      // EQ: Single-item subscales are anchors (cannot be swapped)
+      eq: {
+        anchors: [
+          'I reflect on how my emotions influence my behavior.',          // Self-Actualization (only item)
+          'I am confident in managing emotionally difficult conversations.', // Assertiveness (only item)
+          'I consider others\' feelings before making decisions.'        // Social Responsibility (only item)
+        ]
+      },
+      // AQ: MCQ items are structurally critical
+      aq: {
+        anchors: [
+          'When I face unexpected challenges, I tend to:',  // Control MCQ
+          'When things go wrong, I usually:',               // Ownership MCQ
+          'When I fail, I:',                                // Endurance MCQ
+          'When something bad happens, I think it will affect:' // Reach MCQ
+        ]
+      },
+      // SQ: PMP has fewest items (5); anchors are the most discriminating
+      sq: {
+        anchors: [
+          'I make decisions that align with my spiritual beliefs.',
+          'I believe in a purpose greater than myself.',
+          'I can enter deep states of inner stillness or peace.'
+        ]
+      },
+      // DQ: Foundational items per sub-dimension
+      dq: {
+        anchors: [
+          'I understand the basic functioning of artificial intelligence systems.',  // DL1
+          'I can interpret basic data visualisations (charts, graphs, dashboards).', // DA1
+          'I am aware of ethical issues related to the use of digital technologies.', // DE1
+          'I follow basic cybersecurity practices (e.g., strong passwords, two-factor authentication).' // CA1
+        ]
+      },
+      // Stress: Reverse-scored items are critical for coping balance
+      stress: {
+        anchors: [
+          'In the last month, how often have you felt confident about your ability to handle personal problems?',
+          'In the last month, how often have you felt that things were going your way?',
+          'In the last month, how often have you been able to control irritations in your life?',
+          'In the last month, how often have you felt that you were on top of things?'
+        ]
+      }
+    };
+
+    function isAnchorItem(testKey, questionText) {
+      var map = importanceMap[testKey];
+      if (!map || !map.anchors) return false;
+      return map.anchors.some(function(a) {
+        return questionText.indexOf(a.substring(0, 40)) !== -1;
+      });
+    }
+
+    // ── Score a single item for display ──
+    function scoreOneItem(testKey, q, response) {
+      if (!response) return { score: 0, max: 5, label: 'Unanswered' };
+
+      // IQ
+      if (testKey === 'iq') {
+        var correct = (response || '').trim().toLowerCase() === ((q.answer || '').trim().toLowerCase());
+        return { score: correct ? 1 : 0, max: 1, label: correct ? 'Correct' : 'Incorrect (' + escapeHtml(q.answer) + ')' };
+      }
+
+      // MCQ in AQ
+      var isMCQ = !!(q.options && q.options.length && q.answer);
+      if (isMCQ) {
+        var correct = (response || '').trim().toLowerCase() === (q.answer || '').trim().toLowerCase();
+        return { score: correct ? 5 : 1, max: 5, label: correct ? 'Best response' : 'Suboptimal' };
+      }
+
+      // Likert
+      var likertOptions = ['Strongly Disagree', 'Disagree', 'Neutral', 'Agree', 'Strongly Agree'];
+      var freqOptions = ['Never', 'Rarely', 'Sometimes', 'Often', 'Very Often'];
+      var val = likertOptions.indexOf(response);
+      if (val === -1) val = freqOptions.indexOf(response);
+      if (val === -1 && q.scale) val = q.scale.indexOf(response);
+      if (val === -1) return { score: 0, max: 5, label: 'Unknown' };
+      val = val + 1;
+      var score = q.reverse ? (6 - val) : val;
+      return { score: score, max: 5, label: score + '/5' };
+    }
+
+    // ── Render Question-Level Detail ──
+    function renderQuestionDetails() {
+      var container = document.getElementById('questionDetails');
+      var hasAnyData = false;
+      var html = '';
+
+      var fullLabels = {
+        iq: 'Intelligence Quotient (IQ)',
+        eq: 'Emotional Quotient (EQ)',
+        aq: 'Adversity Quotient (AQ)',
+        sq: 'Spiritual Quotient (SQ)',
+        dq: 'Digital Quotient (DQ)',
+        stress: 'Perceived Stress'
+      };
+
+      testOrder.forEach(function(test) {
+        var qs = JSON.parse(localStorage.getItem(test + '_questions_shown') || '[]');
+        var resp = JSON.parse(localStorage.getItem(test + '_responses') || '[]');
+        if (!qs.length) return;
+        hasAnyData = true;
+
+        html += '<details class="test-detail-section">';
+        html += '<summary>' + escapeHtml(fullLabels[test]) + ' (' + resp.filter(function(r){ return r; }).length + '/' + qs.length + ' answered)</summary>';
+        html += '<table class="question-table"><thead><tr><th>#</th><th>Question</th><th>Your Response</th><th>Score</th><th>Type</th></tr></thead><tbody>';
+
+        qs.forEach(function(q, i) {
+          var r = resp[i] || null;
+          var result = scoreOneItem(test, q, r);
+          var anchor = isAnchorItem(test, q.question);
+          var dim = q.composite || q.subscale || '';
+          var scoreClass = '';
+          if (test === 'iq') {
+            scoreClass = result.score === 1 ? 'score-high' : (r ? 'score-low' : 'score-na');
+          } else if (test === 'stress') {
+            // For stress: high raw = high stress (bad), but reverse items flip
+            scoreClass = result.score <= 2 ? 'score-high' : (result.score >= 4 ? 'score-low' : 'score-mid');
+          } else {
+            scoreClass = result.score >= 4 ? 'score-high' : (result.score <= 2 ? 'score-low' : 'score-mid');
+          }
+
+          html += '<tr class="' + scoreClass + '">';
+          html += '<td>' + (i + 1) + '</td>';
+          html += '<td>' + escapeHtml(q.question);
+          if (dim) html += ' <span class="dim-badge">' + escapeHtml(dim) + '</span>';
+          html += '</td>';
+          html += '<td>' + escapeHtml(r || '--') + '</td>';
+          html += '<td><strong>' + result.label + '</strong></td>';
+          html += '<td>' + (anchor ? '<span class="importance-tag anchor">Anchor</span>' : '<span class="importance-tag supplementary">Supplementary</span>') + '</td>';
+          html += '</tr>';
+        });
+
+        html += '</tbody></table></details>';
+      });
+
+      if (hasAnyData) {
+        container.innerHTML = html;
+        document.getElementById('questionDetailCard').style.display = 'block';
+      }
+    }
+
+    // ── Score Interpretation ──
+    function getLevel(score, isStress) {
+      if (isStress) {
+        if (score <= 25) return { level: 'Low Stress', color: 'var(--success)', advice: 'Healthy stress levels. Good coping mechanisms in place.' };
+        if (score <= 50) return { level: 'Moderate', color: 'var(--warning)', advice: 'Manageable stress. Consider stress-reduction strategies.' };
+        if (score <= 75) return { level: 'High', color: 'var(--danger)', advice: 'Elevated stress. Prioritise wellbeing and seek support.' };
+        return { level: 'Very High', color: 'var(--danger)', advice: 'Critical stress levels. Professional support recommended.' };
+      }
+      if (score >= 81) return { level: 'Excellent', color: 'var(--success)', advice: 'Strong competency; well-positioned for entrepreneurial success.' };
+      if (score >= 61) return { level: 'Good', color: 'var(--accent)', advice: 'Solid foundation with room for targeted development.' };
+      if (score >= 41) return { level: 'Moderate', color: 'var(--warning)', advice: 'Average competency; focused training recommended.' };
+      return { level: 'Developing', color: 'var(--danger)', advice: 'Requires significant development in this dimension.' };
+    }
+
+    function renderInterpretation(scores, composite) {
+      var container = document.getElementById('interpretationBands');
+      var dims = [
+        { key: 'IQ', label: 'IQ', stress: false },
+        { key: 'EQ', label: 'EQ', stress: false },
+        { key: 'AQ', label: 'AQ', stress: false },
+        { key: 'SQ', label: 'SQ', stress: false },
+        { key: 'DQ', label: 'DQ', stress: false },
+        { key: 'STRESS', label: 'Stress', stress: true }
+      ];
+      var html = '';
+      dims.forEach(function(d) {
+        var val = scores[d.key] || 0;
+        var info = getLevel(val, d.stress);
+        html += '<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border-light);">' +
+          '<div style="min-width:60px;font-weight:700;font-size:0.9rem;color:var(--text);">' + d.label + '</div>' +
+          '<div style="flex:1;"><div style="height:8px;background:var(--bg-alt);border-radius:4px;overflow:hidden;">' +
+            '<div style="height:100%;width:' + val + '%;background:' + info.color + ';border-radius:4px;transition:width 1s ease;"></div>' +
+          '</div></div>' +
+          '<div style="min-width:40px;font-weight:800;font-size:0.95rem;text-align:right;color:' + info.color + ';">' + val + '</div>' +
+          '<div style="min-width:75px;font-size:0.72rem;font-weight:700;text-transform:uppercase;color:' + info.color + ';">' + info.level + '</div>' +
+        '</div>';
+      });
+      var compInfo = getLevel(composite, false);
+      html += '<div style="margin-top:14px;padding:12px 16px;background:var(--bg);border-radius:8px;border:2px solid ' + compInfo.color + ';">' +
+        '<div style="display:flex;justify-content:space-between;align-items:center;">' +
+          '<span style="font-weight:700;">5QS+ Overall</span>' +
+          '<span style="font-weight:800;font-size:1.15rem;color:' + compInfo.color + ';">' + composite + '/100 &mdash; ' + compInfo.level + '</span>' +
+        '</div>' +
+        '<p style="margin:6px 0 0;font-size:0.84rem;color:var(--text-secondary);">' + compInfo.advice + '</p>' +
+      '</div>';
+      container.innerHTML = html;
+      document.getElementById('interpretationCard').style.display = 'block';
+    }
+
+    // ── Main Calculation ──
+    async function calculateResults() {
+      if (localStorage.getItem('submitted')) {
+        document.getElementById('sync-status').className = 'success';
+        document.getElementById('sync-status').textContent = 'Results already submitted.';
+        // Show finish button on reload too
+        var syncEl = document.getElementById('sync-status');
+        var finishBtn = document.createElement('a');
+        finishBtn.href = 'thank-you.html';
+        finishBtn.className = 'btn';
+        finishBtn.style.cssText = 'display:inline-block;margin-top:1rem;text-decoration:none;';
+        finishBtn.textContent = 'Finish Assessment';
+        syncEl.parentNode.insertBefore(finishBtn, syncEl.nextSibling);
+        // Try to restore saved results for display
+        var savedScores = JSON.parse(localStorage.getItem('results_backup') || 'null');
+        if (savedScores) {
+          document.getElementById('scoreGrid').innerHTML = savedScores.gridHTML || '';
+          if (savedScores.fiveQSPlus !== undefined) {
+            document.getElementById('finalScoreCard').style.display = 'block';
+            document.getElementById('finalScoreValue').textContent = savedScores.fiveQSPlus;
+          }
+        }
+        return;
+      }
+
+      var scoreGrid = document.getElementById('scoreGrid');
+
+      for (var t = 0; t < testOrder.length; t++) {
+        var test = testOrder[t];
+        var responses = JSON.parse(localStorage.getItem(test + '_responses') || '[]');
+        // Use the exact questions shown to this participant (stored by test engine)
+        var questionsShown = JSON.parse(localStorage.getItem(test + '_questions_shown') || '[]');
+
+        if (test === 'iq') {
+          scores.IQ = scoreIQ(responses);
+        } else if (questionsShown.length) {
+          scores[test.toUpperCase()] = scoreMixed(test, questionsShown, responses);
+        } else {
+          scores[test.toUpperCase()] = 0;
+          meta[test] = { attempted: 0 };
+        }
+
+        if (scores[test.toUpperCase()] === undefined) {
+          scores[test.toUpperCase()] = 0;
+          meta[test] = { attempted: 0 };
+        }
+      }
+
+      // ── Render Score Grid ──
+      var gridHTML = '';
+      var labels = { IQ: 'IQ', EQ: 'EQ', AQ: 'AQ', SQ: 'SQ', DQ: 'DQ', STRESS: 'Stress' };
+      for (var key in labels) {
+        var val = scores[key] || 0;
+        gridHTML +=
+          '<div class="score-item">' +
+            '<div class="label">' + labels[key] + '</div>' +
+            '<div class="value">' + val + '</div>' +
+            '<div class="max">/ 100</div>' +
+          '</div>';
+      }
+      scoreGrid.innerHTML = gridHTML;
+
+      // ── 5QS+ Composite (IQ + EQ + AQ + SQ + DQ, excluding Stress) ──
+      var coreScores = [scores.IQ, scores.EQ, scores.AQ, scores.SQ, scores.DQ].filter(function(s) {
+        return s !== undefined && s !== null;
+      });
+      var fiveQSPlus = coreScores.length ? Math.round(coreScores.reduce(function(a, b) { return a + b; }, 0) / coreScores.length) : 0;
+
+      var finalCard = document.getElementById('finalScoreCard');
+      finalCard.style.display = 'block';
+      document.getElementById('finalScoreValue').textContent = fiveQSPlus;
+
+      // ── Radar Chart (6 Axes) ──
+      new Chart(document.getElementById('radarChart'), {
+        type: 'radar',
+        data: {
+          labels: ['IQ', 'EQ', 'AQ', 'SQ', 'DQ', 'Stress'],
+          datasets: [{
+            label: 'Your 5QS+ Profile',
+            data: [scores.IQ || 0, scores.EQ || 0, scores.AQ || 0, scores.SQ || 0, scores.DQ || 0, scores.STRESS || 0],
+            fill: true,
+            borderColor: '#0F2B46',
+            backgroundColor: 'rgba(15, 43, 70, 0.15)',
+            pointBackgroundColor: '#0D7377',
+            pointBorderColor: '#fff',
+            pointBorderWidth: 2,
+            pointRadius: 5,
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          scales: {
+            r: {
+              angleLines: { display: true, color: '#CBD5E0' },
+              grid: { color: '#CBD5E0' },
+              suggestedMin: 0,
+              suggestedMax: 100,
+              pointLabels: {
+                font: { size: 13, weight: 'bold' },
+                color: '#0F2B46'
+              },
+              ticks: { stepSize: 20, backdropColor: 'transparent' }
+            }
+          },
+          plugins: {
+            legend: { display: false }
+          }
+        }
+      });
+
+      // ── Composite Breakdowns ──
+      if (compositeData.dq && Object.keys(compositeData.dq).length) {
+        document.getElementById('dqBreakdownCard').style.display = 'block';
+        renderCompositeBars('dqComposites', compositeData.dq);
+      }
+      if (compositeData.eq && Object.keys(compositeData.eq).length) {
+        document.getElementById('eqBreakdownCard').style.display = 'block';
+        renderCompositeBars('eqComposites', compositeData.eq);
+      }
+      if (compositeData.aq && Object.keys(compositeData.aq).length) {
+        document.getElementById('aqBreakdownCard').style.display = 'block';
+        renderCompositeBars('aqComposites', compositeData.aq);
+      }
+      if (compositeData.sq && Object.keys(compositeData.sq).length) {
+        document.getElementById('sqBreakdownCard').style.display = 'block';
+        renderCompositeBars('sqComposites', compositeData.sq);
+      }
+      if (compositeData.stress && Object.keys(compositeData.stress).length) {
+        document.getElementById('stressBreakdownCard').style.display = 'block';
+        renderCompositeBars('stressComposites', compositeData.stress);
+      }
+
+      // ── Question-wise Detail Rendering ──
+      renderQuestionDetails();
+
+      // ── Score Interpretation Bands ──
+      renderInterpretation(scores, fiveQSPlus);
+
+      // ── Build DQ Sub-Scores for Payload ──
+      var dqSubs = compositeData.dq || {};
+      var dqAILiteracy = (dqSubs['AI Literacy'] || {}).percent || 0;
+      var dqDataAnalytics = (dqSubs['Data Analytics'] || {}).percent || 0;
+      var dqDigitalEthics = (dqSubs['Digital Ethics'] || {}).percent || 0;
+      var dqCyberAwareness = (dqSubs['Cyber Awareness'] || {}).percent || 0;
+
+      // ── Submit to Google Sheets ──
+      // ── Guard: do not submit if no tests were actually taken ──
+      var totalAttempted = testOrder.reduce(function(sum, t) {
+        return sum + ((meta[t] || {}).attempted || 0);
+      }, 0);
+      if (totalAttempted === 0) {
+        var syncEl = document.getElementById('sync-status');
+        syncEl.className = 'error';
+        syncEl.textContent = 'No assessment data found. Please complete the assessment before viewing results.';
+        return;
+      }
+
+      // ── Gather duration data ──
+      var totalDuration = 0;
+      testOrder.forEach(function(t) {
+        var d = parseInt(localStorage.getItem(t + '_duration') || '0', 10);
+        totalDuration += d;
+      });
+
+      var payload = {
+        sheetName: '5QS+_Responses',
+        name: userInfo.name || 'N/A',
+        email: userInfo.email || 'N/A',
+        age: userInfo.age || 'N/A',
+        gender: userInfo.gender || 'N/A',
+        profession: userInfo.profession || 'N/A',
+        institution: userInfo.institution || 'N/A',
+        program: userInfo.program || 'N/A',
+        iq: scores.IQ || 0,
+        iq_correct: (meta.iq || {}).correct || 0,
+        iq_attempted: (meta.iq || {}).attempted || 0,
+        iq_total: (meta.iq || {}).total || 0,
+        eq: scores.EQ || 0,
+        eq_items: (meta.eq || {}).attempted || 0,
+        aq: scores.AQ || 0,
+        aq_items: (meta.aq || {}).attempted || 0,
+        sq: scores.SQ || 0,
+        sq_items: (meta.sq || {}).attempted || 0,
+        dq: scores.DQ || 0,
+        dq_items: (meta.dq || {}).attempted || 0,
+        dq_ai_literacy: dqAILiteracy,
+        dq_data_analytics: dqDataAnalytics,
+        dq_digital_ethics: dqDigitalEthics,
+        dq_cyber_awareness: dqCyberAwareness,
+        stress: scores.STRESS || 0,
+        stress_items: (meta.stress || {}).attempted || 0,
+        fiveqs_plus: fiveQSPlus,
+        total_duration_sec: totalDuration,
+        timestamp: new Date().toISOString()
+      };
+
+      try {
+        await fetch('https://script.google.com/macros/s/AKfycbxkxU3-At3xITXT2MPCGQkZivclcGhwg7caebmeZDMKeOYqd9O7nUZRg021VGhBJRGp/exec', {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        var syncEl = document.getElementById('sync-status');
+        syncEl.className = 'success';
+        syncEl.textContent = 'Results submitted successfully. Please check Google Sheet for confirmation.';
+        localStorage.setItem('submitted', 'true');
+
+        // Show finish button to navigate to thank-you page
+        var finishBtn = document.createElement('a');
+        finishBtn.href = 'thank-you.html';
+        finishBtn.className = 'btn';
+        finishBtn.style.cssText = 'display:inline-block;margin-top:1rem;text-decoration:none;';
+        finishBtn.textContent = 'Finish Assessment';
+        syncEl.parentNode.insertBefore(finishBtn, syncEl.nextSibling);
+
+        // Save a backup of scores for page reload display
+        localStorage.setItem('results_backup', JSON.stringify({
+          gridHTML: document.getElementById('scoreGrid').innerHTML,
+          fiveQSPlus: fiveQSPlus
+        }));
+
+        // Clean up raw response data (backup retained)
+        testOrder.forEach(function(t) {
+          localStorage.removeItem(t + '_responses');
+          localStorage.removeItem(t + '_questions_shown');
+          localStorage.removeItem(t + '_start_time');
+          localStorage.removeItem(t + '_duration');
+        });
+        localStorage.removeItem('user_info');
+      } catch (error) {
+        var syncEl = document.getElementById('sync-status');
+        syncEl.className = 'error';
+        syncEl.textContent = 'Could not connect to Google Sheets: ' + error.message +
+          '. Please use Chrome or disable tracking prevention in your browser settings.';
+      }
+    }
+
+    calculateResults();
+  </script>
+
+</body>
+</html>
