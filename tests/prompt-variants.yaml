@@ -1,0 +1,131 @@
+# Fixed candidate profiles. Select on the 24-case synthetic development set,
+# then evaluate the chosen profile once on the separate real question banks.
+baseline: {}
+literal-json:
+  prompts:
+    instructions: Compare literal text only; do not infer any personal attributes.
+    state: '{"recorded_response": {{response}}}'
+    dimensions:
+      iq: { state: '{"answer_key": {{answer}}, "recorded_response": {{response}}}' }
+      aq: { state: '{"answer_key": {{answer}}, "recorded_response": {{response}}}' }
+  rubrics:
+    iq:
+      instructions: Is recorded_response identical to answer_key?
+      options:
+        - {value: 0, text: 'No, the texts differ.'}
+        - {value: 1, text: 'Yes, the texts are identical.'}
+    mcq:
+      instructions: Is recorded_response identical to answer_key?
+      options:
+        - {value: 1, text: 'No, the texts differ.'}
+        - {value: 5, text: 'Yes, the texts are identical.'}
+    likert: { instructions: Which option exactly matches recorded_response? }
+bare-copy:
+  prompts:
+    instructions: Select the matching option.
+    state: '{{response_text}}'
+    dimensions:
+      iq: { state: 'Key: {{answer_text}}. Response: {{response_text}}.' }
+      aq: { state: 'Key: {{answer_text}}. Response: {{response_text}}.' }
+      stress: { instructions: Match the recorded wording. }
+  rubrics:
+    iq:
+      instructions: Does Response match Key?
+      options: [{value: 0, text: 'Mismatch'}, {value: 1, text: 'Match'}]
+    mcq:
+      instructions: Does Response match Key?
+      options: [{value: 1, text: 'Mismatch'}, {value: 5, text: 'Match'}]
+    likert: { instructions: What is the recorded response? }
+report-phrase:
+  prompts:
+    instructions: Read the participant's recorded words, not their meaning.
+    state: 'The participant selected {{response_text}}.'
+    dimensions:
+      iq: { state: 'The reference is {{answer}}. The selected answer is {{response}}.' }
+      aq: { state: 'The reference is {{answer}}. The selected answer is {{response}}.' }
+  rubrics:
+    iq:
+      instructions: Compare the selected answer to the reference.
+      options: [{value: 0, text: 'The selected answer is wrong.'}, {value: 1, text: 'The selected answer is right.'}]
+    mcq:
+      instructions: Compare the selected answer to the reference.
+      options: [{value: 1, text: 'The selected answer is wrong.'}, {value: 5, text: 'The selected answer is right.'}]
+    likert:
+      instructions: Which statement repeats the participant's selection?
+      options:
+        - {value: 1, text: 'The participant selected {{point_1_response}}.'}
+        - {value: 2, text: 'The participant selected {{point_2_response}}.'}
+        - {value: 3, text: 'The participant selected {{point_3_response}}.'}
+        - {value: 4, text: 'The participant selected {{point_4_response}}.'}
+        - {value: 5, text: 'The participant selected {{point_5_response}}.'}
+entailment:
+  prompts:
+    instructions: Select the statement supported by the evidence.
+    state: 'Evidence: The recorded response is {{response}}.'
+    dimensions:
+      iq: { state: 'Answer key: {{answer}}. Recorded response: {{response}}.' }
+      aq: { state: 'Answer key: {{answer}}. Recorded response: {{response}}.' }
+  rubrics:
+    iq:
+      instructions: Is the recorded response correct according to the answer key?
+      options: [{value: 0, text: 'The response contradicts the answer key.'}, {value: 1, text: 'The response agrees with the answer key.'}]
+    mcq:
+      instructions: Is the recorded response correct according to the answer key?
+      options: [{value: 1, text: 'The response contradicts the answer key.'}, {value: 5, text: 'The response agrees with the answer key.'}]
+    likert:
+      instructions: Which statement is supported by the recorded response?
+      options:
+        - {value: 1, text: 'The recorded response is {{point_1_response}}.'}
+        - {value: 2, text: 'The recorded response is {{point_2_response}}.'}
+        - {value: 3, text: 'The recorded response is {{point_3_response}}.'}
+        - {value: 4, text: 'The recorded response is {{point_4_response}}.'}
+        - {value: 5, text: 'The recorded response is {{point_5_response}}.'}
+boolean-equality:
+  prompts:
+    instructions: Use only the supplied text evidence.
+    state: 'Recorded response: {{response}}.'
+    dimensions:
+      iq: { state: 'Reference: {{answer}}. Submitted: {{response}}.' }
+      aq: { state: 'Reference: {{answer}}. Submitted: {{response}}.' }
+  rubrics:
+    iq:
+      type: noul
+      instructions: Is the submitted answer the same as the reference answer?
+      options: [{value: 0, text: 'false: the answers differ'}, {value: 1, text: 'true: the answers match'}]
+    mcq:
+      type: noul
+      instructions: Is the submitted answer the same as the reference answer?
+      options: [{value: 1, text: 'false: the answers differ'}, {value: 5, text: 'true: the answers match'}]
+    likert: { instructions: Which exact response was recorded? }
+binary-score:
+  rubrics:
+    iq:
+      type: score
+      instructions: How well does the recorded response match the supplied reference answer?
+      options: [{value: 0, text: 'level 0: does not match'}, {value: 1, text: 'level 1: matches exactly'}]
+    mcq:
+      type: score
+      instructions: How well does the recorded response match the supplied reference answer?
+      options: [{value: 1, text: 'level 0: does not match'}, {value: 5, text: 'level 1: matches exactly'}]
+    likert:
+      type: score
+      instructions: Which level corresponds to the recorded response?
+      options:
+        - {value: 1, text: 'level 0: {{point_1_response}}'}
+        - {value: 2, text: 'level 1: {{point_2_response}}'}
+        - {value: 3, text: 'level 2: {{point_3_response}}'}
+        - {value: 4, text: 'level 3: {{point_4_response}}'}
+        - {value: 5, text: 'level 4: {{point_5_response}}'}
+explicit-rubric:
+  prompts:
+    instructions: Follow the supplied scoring rubric literally.
+    state: |-
+      Response: {{response}}
+      Rubric: 1={{point_1_response}}; 2={{point_2_response}}; 3={{point_3_response}}; 4={{point_4_response}}; 5={{point_5_response}}.
+    dimensions:
+      iq: { state: 'Reference: {{answer}}. Response: {{response}}. Different=0, identical=1.' }
+      aq: { state: 'Reference: {{answer}}. Response: {{response}}. Different=1, identical=5.' }
+  rubrics:
+    likert:
+      instructions: Which point value does the rubric assign to the recorded response?
+      options: [{value: 1, text: '1 point'}, {value: 2, text: '2 points'}, {value: 3, text: '3 points'}, {value: 4, text: '4 points'}, {value: 5, text: '5 points'}]

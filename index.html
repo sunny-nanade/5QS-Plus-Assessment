@@ -100,6 +100,7 @@
         No personally identifiable information will be disclosed in any publication. Participation is voluntary and you
         may withdraw at any time.
       </p>
+      <p>Scoring runs privately on your device using an experimental model downloaded in the background (about 453 MB initially). Results are not yet validated for research use; summary submission is disabled by default. If enabled, demographics and summary scores go to Google Sheets, never to a model service. <a href="model-licenses.html">Model licences and data use</a>.</p>
       <div class="consent-box">
         <label>
           <input type="checkbox" id="consent" />
@@ -142,6 +143,8 @@
       </p>
       <p>5QS+ Assessment Platform &bull; Open-Source Research Artefact &bull;
         <a href="https://github.com/sunny-nanade/5QS-Plus-Assessment" target="_blank" rel="noopener">GitHub Repository</a>
+        &bull; <a href="benchmarks.html">Model Benchmarks</a>
+        &bull; <a href="model-licenses.html">Model Licences</a>
       </p>
     </footer>
 
@@ -164,6 +167,7 @@
       localStorage.removeItem('user_info');
       localStorage.removeItem('submitted');
       localStorage.removeItem('results_backup');
+      localStorage.removeItem('submission_fingerprint');
       window.location.href = 'info.html';
     }
   </script>

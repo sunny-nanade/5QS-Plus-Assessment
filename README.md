@@ -22,6 +22,10 @@ The **5QS+ Framework** extends the validated 4QS model (Nanade et al., 2021; Nan
 
 The DQ instrument (30 items) is administered in full to support Cronbach's α, composite reliability, and CFA validation (§5.1 of the paper).
 
+This theoretical overview describes the original framework; it does not establish
+validity of the sampled/adapted, model-scored version. See the
+[source-use record](docs/REFERENCES.md) and [instrument audit](docs/PSYCHOLOGY_SCORING_REVIEW.md).
+
 ---
 
 ## Architecture
@@ -33,7 +37,12 @@ The DQ instrument (30 items) is administered in full to support Cronbach's α, c
 ├── test.html           # Assessment engine (stratified sampling, auto-advance)
 ├── results.html        # 6-axis radar chart, composite breakdowns, Google Sheets sync
 ├── thank-you.html      # Completion & redirect
-├── styles.css          # Responsive UI with print support
+├── styles.css          # Responsive UI with print support (original styling retained)
+├── assessment.html     # Transparent persistent host for local inference
+├── scoring.yaml        # Model, prompts, inference properties and submission switch
+├── js/                 # Modular scoring, runtime, presentation and submission
+├── benchmarks.html     # Separate researcher benchmark page
+├── model-licenses.html # Model attribution, licences and local data use
 └── questions/
     ├── iq.json         # 31 MCQ items
     ├── eq.json         # 25 Likert items, 5 composites
@@ -44,7 +53,7 @@ The DQ instrument (30 items) is administered in full to support Cronbach's α, c
 ```
 
 **Stack**: Static HTML5 / CSS3 / Vanilla JavaScript · Chart.js v4.4.4 · GitHub Pages  
-**Data capture**: Google Sheets via Apps Script endpoint (no server required)
+**Data capture**: Optional Google Sheets via Apps Script endpoint (disabled by default pending model validation)
 
 ---
 
@@ -63,7 +72,7 @@ All items measured on a 5-point Likert scale (1 = Strongly Disagree → 5 = Stro
 
 ## Assessment Engine Features
 
-- **Stratified random sampling**: Questions grouped by subscale/composite, then balanced random subsets selected per group — maintains construct validity while reducing respondent fatigue.
+- **Stratified random sampling**: Questions grouped by subscale/composite, then balanced random subsets selected per group to balance representation and reduce respondent fatigue. Construct validity of the sampled, model-scored version still requires evidence.
 - **Mixed-format auto-detection**: AQ items contain both MCQ (scored correct = 5, incorrect = 1) and Likert items; the engine detects format per item.
 - **Auto-advance**: 350 ms delay after selection for natural pacing.
 - **Timer per test**: Visual countdown with warning colours at 60 s and 30 s remaining.
@@ -81,13 +90,13 @@ cd 5QS-Plus-Assessment
 
 # Serve locally (any static server works)
 python -m http.server 8000
-# or
-npx serve .
+# or, with Node.js 22+
+npm run serve
 ```
 
-Open `http://localhost:8000` in Chrome/Edge.
+Open `http://localhost:8000` (Python) or `http://localhost:9090` (Node) in Chrome/Edge.
 
-> **Note:** The Google Sheets endpoint requires HTTPS (GitHub Pages) to function. Local testing will show a sync warning — this is expected.
+> Use HTTPS or localhost for local inference. Browser privacy/network settings may block optional Sheets sync; `no-cors` cannot confirm a saved row.
 
 ---
 
@@ -99,9 +108,22 @@ Push to the `main` branch of `sunny-nanade/5QS-Plus-Assessment`. Enable **GitHub
 https://sunny-nanade.github.io/5QS-Plus-Assessment/
 ```
 
+`.nojekyll` preserves the static assets. No production build, API key, inference server or custom response headers are required. See [local scoring and deployment](docs/LOCAL_SCORING.md).
+
 ---
 
 ## Scoring Method
+
+**Experimental local-model update:** Laya assigns item points in the browser using the YAML rubric, with WebGPU and local CPU/WASM fallback. The original question banks and visual design are retained. These scores are **not a validated replacement** for the published instrument, and research submission stays disabled by default.
+
+- Configure models, prompts and inference in [`scoring.yaml`](scoring.yaml); see [configuration and module boundaries](docs/LOCAL_SCORING.md).
+- Inspect recorded results or opt in to local tests on [`benchmarks.html`](benchmarks.html).
+- Active V4 coding agreement: **718/718** bank cases and **986/986** exposed development cases; **412/414 (99.5%)** separately frozen synthetic fixtures. Because of nominal encoding, only 102 probe cases use new canonical inputs: **100/102**, or **32/33 distinct new-input decisions**. The 718 bank cases have only **31 distinct model inputs**; none of these counts is psychological accuracy or independent participant evidence. The earlier V3 probe failure (170/180) is retained. See [research protocol and all rounds](docs/RESEARCH_VALIDATION.md).
+- [Psychology source review](docs/PSYCHOLOGY_SCORING_REVIEW.md): targeted sources, probable IQ key defects, ambiguous AQ coding and nonstandard stress-scale use. Unsupported stress severity cut-offs are removed; original question banks remain unchanged. [Fine-tuning prerequisites](docs/FINETUNING_PLAN.md) are documented; no training has been performed.
+- Model licences, pinned revisions and attribution: [`MODEL_LICENSES.md`](MODEL_LICENSES.md).
+- Developer checks: `npm ci` then `npm test` — **41 automated tests**; these do not run model inference. See the [coverage and manual-check record](docs/TESTING.md).
+
+The following is the **intended point rubric**, not a guarantee that a model always applies it correctly:
 
 | Test | Format | Scoring |
 |------|--------|---------|
@@ -109,11 +131,19 @@ https://sunny-nanade.github.io/5QS-Plus-Assessment/
 | EQ, SQ, DQ, Stress | Likert 1–5 | Sum per composite / max possible → % |
 | AQ | Mixed | MCQ items: Correct = 5, Incorrect = 1; Likert items: standard 1–5 with reverse scoring |
 
-**5QS+ Composite Score** = mean(IQ%, EQ%, AQ%, SQ%, DQ%). Stress is reported separately as a moderating variable.
+**5QS+ Composite Score** = mean(IQ%, EQ%, AQ%, SQ%, DQ%). Stress is reported separately as a moderating variable. Within answered non-IQ dimensions, subscale percentages are equally weighted. Unanswered items are excluded; skipped dimensions contribute zero to the overall mean.
 
 ---
 
 ## References
+
+The original framework bibliography below is retained for context; it was not all
+independently reviewed for this update. The new review used CMU's PSS guidance,
+Boateng et al. and the official Testing Standards access page; King/DeCicco and
+van Laar bibliographic metadata were checked, not their complete scoring manuals
+or full texts. Consult [References and source-use record](docs/REFERENCES.md) for
+direct source links, review status, how each source informed changes, and model
+card references. None supplies psychological ground-truth labels for this app.
 
 1. Ajzen, I. (1991). The theory of planned behavior. *Organizational Behavior and Human Decision Processes*, 50(2), 179–211.
 2. Becker, G. S. (1993). *Human capital: A theoretical and empirical analysis.* University of Chicago Press.
@@ -131,14 +161,29 @@ https://sunny-nanade.github.io/5QS-Plus-Assessment/
 14. Nanade, S., Lal, S., Goswami, S., & Sharma, A. (2020). 4QS model to assess the quotient skills of the students through real-time learning. *Int. Journal of Advanced Science and Technology (IJAST)*.
 15. OECD. (2023). *Digital education outlook 2023.*
 16. Stoltz, P. G. (1997). *Adversity quotient: Turning obstacles into opportunities.* John Wiley & Sons.
-17. van Laar, E., van Deursen, A. J., van Dijk, J. A., & de Haan, J. (2017). The relation between 21st-century skills and digital skills. *Computers in Human Behavior*, 72, 577–588.
+17. van Laar, E., van Deursen, A. J. A. M., van Dijk, J. A. G. M., & de Haan, J. (2017). The relation between 21st-century skills and digital skills: A systematic literature review. *Computers in Human Behavior*, 72, 577–588. [doi:10.1016/j.chb.2017.03.010](https://doi.org/10.1016/j.chb.2017.03.010).
 18. Zohar, D., & Marshall, I. (2000). *SQ: Spiritual intelligence, the ultimate intelligence.* Bloomsbury.
+19. Cohen, S., Kamarck, T., & Mermelstein, R. (1983). A global measure of perceived stress. *Journal of Health and Social Behavior*, 24, 385–396. Referenced by the consulted [CMU PSS items, scoring and limitations guidance](docs/REFERENCES.md#pss-guidance); analyses not independently reproduced here.
+20. Boateng, G. O., Neilands, T. B., Frongillo, E. A., Melgar-Quiñonez, H. R., & Young, S. L. (2018). Best practices for developing and validating scales for health, social, and behavioral research: A primer. *Frontiers in Public Health*, 6, 149. [doi:10.3389/fpubh.2018.00149](https://doi.org/10.3389/fpubh.2018.00149).
+21. American Educational Research Association, American Psychological Association, & National Council on Measurement in Education. (2014). *Standards for educational and psychological testing*. AERA. [Official open-access editions](https://www.testingstandards.net/open-access-files.html).
+22. King, D. B., & DeCicco, T. L. (2009). A viable model and self-report measure of spiritual intelligence. *International Journal of Transpersonal Studies*, 28(1), 68–85. [doi:10.24972/ijts.2009.28.1.68](https://doi.org/10.24972/ijts.2009.28.1.68).
+
+### Evaluation and developer documentation
+
+| Document | Contents |
+|---|---|
+| [Benchmarks](docs/BENCHMARKS.md) | V1–V4 evidence links, all 18 new configurations, failures, overlap, timing limits and exact reproduction controls |
+| [Tests](docs/TESTING.md) | All five test files / 41 tests, CI scope, real-model versus mocked checks, browser check record and commands |
+| [Research boundaries](docs/RESEARCH_VALIDATION.md) | Adaptive-round protocol and requirements before participant research |
+| [Source review](docs/PSYCHOLOGY_SCORING_REVIEW.md) | Source-to-change reasoning and unresolved item/key issues |
+| [Pull request draft](PULL_REQUEST.md) | Copyable title, changes, benchmark evidence, references and validation |
 
 ---
 
 ## License
 
 This work is licensed under [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/).
+Models and runtime dependencies retain their separate licences; see [model notices](MODEL_LICENSES.md) and the included [Apache-2.0 text](licenses/Apache-2.0.txt). Confirm rights-holder permission to distribute a modified instrument; this update does not change its NoDerivatives terms.
 
 **Citation:**
 ```

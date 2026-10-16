@@ -1,0 +1,69 @@
+# V4: candidates defined after the V3 failure. V3 and V2 probes are now exposed
+# development data. V4 probes must be run only after selecting this round's winner.
+v3-control: {}
+category-report:
+  prompts:
+    kinds:
+      likert: {state: 'The participant selected category {{response_slot}}.'}
+  rubrics:
+    likert:
+      instructions: Which statement repeats the participant's selection?
+      options:
+        - {value: 1, text: 'The participant selected category {{point_1_slot}}.'}
+        - {value: 2, text: 'The participant selected category {{point_2_slot}}.'}
+        - {value: 3, text: 'The participant selected category {{point_3_slot}}.'}
+        - {value: 4, text: 'The participant selected category {{point_4_slot}}.'}
+        - {value: 5, text: 'The participant selected category {{point_5_slot}}.'}
+category-short:
+  prompts:
+    kinds:
+      likert: {state: 'Recorded category: {{response_slot}}.'}
+  rubrics:
+    likert:
+      instructions: Which category was recorded?
+      options:
+        - {value: 1, text: 'Category {{point_1_slot}}'}
+        - {value: 2, text: 'Category {{point_2_slot}}'}
+        - {value: 3, text: 'Category {{point_3_slot}}'}
+        - {value: 4, text: 'Category {{point_4_slot}}'}
+        - {value: 5, text: 'Category {{point_5_slot}}'}
+category-numbers:
+  prompts:
+    kinds:
+      likert: {state: 'Recorded category number: {{response_position}}.'}
+  rubrics:
+    likert:
+      instructions: Which category number was recorded? Numbers identify displayed categories, not trait levels.
+      options:
+        - {value: 1, text: 'Category {{point_1_position}}'}
+        - {value: 2, text: 'Category {{point_2_position}}'}
+        - {value: 3, text: 'Category {{point_3_position}}'}
+        - {value: 4, text: 'Category {{point_4_position}}'}
+        - {value: 5, text: 'Category {{point_5_position}}'}
+category-manual:
+  prompts:
+    kinds:
+      likert: {state: 'Recorded category: {{response_slot}}.', instructions: 'Preserve the recorded self-report. The candidates already encode reverse scoring; do not reverse twice or judge what the participant should have selected.'}
+  rubrics:
+    likert:
+      instructions: Which category was recorded?
+      options:
+        - {value: 1, text: 'Category {{point_1_slot}}'}
+        - {value: 2, text: 'Category {{point_2_slot}}'}
+        - {value: 3, text: 'Category {{point_3_slot}}'}
+        - {value: 4, text: 'Category {{point_4_slot}}'}
+        - {value: 5, text: 'Category {{point_5_slot}}'}
+category-ordinal:
+  prompts:
+    kinds:
+      likert: {state: 'Recorded category: {{response_slot}}.'}
+  rubrics:
+    likert:
+      type: score
+      instructions: Which listed level contains the recorded category? The category-to-level mapping already includes reversal.
+      options:
+        - {value: 1, text: 'level 0: Category {{point_1_slot}}'}
+        - {value: 2, text: 'level 1: Category {{point_2_slot}}'}
+        - {value: 3, text: 'level 2: Category {{point_3_slot}}'}
+        - {value: 4, text: 'level 3: Category {{point_4_slot}}'}
+        - {value: 5, text: 'level 4: Category {{point_5_slot}}'}

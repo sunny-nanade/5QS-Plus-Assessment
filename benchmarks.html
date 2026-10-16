@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5QS+ – Model Benchmarks</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="local-scoring.css" />
+</head>
+<body>
+  <main class="container">
+    <div class="app-header">
+      <h1>Model Benchmarks</h1>
+      <p class="subtitle">Reproducible on-device scoring checks</p>
+      <span class="badge">Development &amp; Research Evaluation</span>
+    </div>
+    <p class="local-links"><a href="index.html">Assessment overview</a> · <a href="model-licenses.html">Model licences</a> · <a href="docs/RESEARCH_VALIDATION.md">Research protocol</a> · <a href="docs/PSYCHOLOGY_SCORING_REVIEW.md">Psychology source review</a></p>
+
+    <section class="card">
+      <h2>Recorded Comparisons</h2>
+      <p>These numbers measure agreement with the original point rubric, not entrepreneurial competency or clinical validity. Repeated response patterns are not independent observations.</p>
+      <p class="local-note"><a href="docs/BENCHMARKS.md">Results and reproduction guide</a> · <a href="docs/TESTING.md">Test coverage</a> · <a href="docs/REFERENCES.md">Source references</a></p>
+      <div class="benchmark-table-wrap"><table class="benchmark-table">
+        <thead><tr><th>Configuration</th><th>Suite</th><th>Agreement</th><th>Backend</th></tr></thead>
+        <tbody id="recorded-results"><tr><td colspan="4">Loading recorded results…</td></tr></tbody>
+      </table></div>
+      <p class="local-note mt-2">The original bank has already been inspected and used for development. It is a regression/calibration set, not an unseen validation set. Frozen novel probes are reported separately. Research submission remains off pending independent validation.</p>
+      <p class="local-note">Perfect coding can reproduce an incorrect key. <a href="docs/PSYCHOLOGY_SCORING_REVIEW.md">The source review flags instrument/key issues</a>; no psychological accuracy or diagnostic validity is established by these comparisons.</p>
+      <p class="local-note">V4's 414 frozen fixture cases contain 64 canonical inputs, 31 overlapping development. Cases with new inputs matched 100/102 (32/33 distinct new-input decisions). Novel wording is not necessarily a novel model input after category encoding.</p>
+    </section>
+
+    <section class="card">
+      <h2>Run a Local Check</h2>
+      <p>Runs only fixture data in a dedicated worker. It never reads participant storage or sends results to Google Sheets. Close assessment tabs first to avoid loading a second model.</p>
+      <div class="benchmark-controls">
+        <label>Model configuration<select id="benchmark-model">
+          <option value="../scoring.yaml">Active assessment model</option>
+          <option value="./laya-v2-scoring.yaml">Laya · frozen V2 recipe</option>
+          <option value="./laya-tuning-baseline.yaml">Laya · frozen tuning baseline</option>
+          <option value="./laya-scoring.yaml">Laya · original baseline</option>
+          <option value="./julia-scoring.yaml">Julia · original baseline</option>
+        </select></label>
+        <label>Device<select id="benchmark-device"><option value="webgpu">WebGPU</option><option value="wasm">CPU / WebAssembly</option></select></label>
+        <label>Evaluation suite<select id="benchmark-suite">
+          <option value="smoke">24-case smoke check</option>
+          <option value="holdout">718-case exposed-bank regression</option>
+          <option value="probes">88-case V2 probes (now exposed)</option>
+          <option value="probes-v3">180-case V3 probes (now exposed)</option>
+          <option value="literature">V3 literature / representation sweep</option>
+          <option value="categories">V4 category-coding development sweep</option>
+          <option value="probes-v4">414-case V4 frozen probes</option>
+          <option value="calibrate">Laya property sweep · calibration only</option>
+          <option value="tune">Original prompt comparison</option>
+        </select></label>
+      </div>
+      <div class="consent-box"><label><input type="checkbox" id="benchmark-consent" /><span>I understand that this downloads hundreds of MB, uses local compute/storage, and may take several minutes on CPU.</span></label></div>
+      <div class="btn-group benchmark-actions">
+        <button id="benchmark-run" class="btn btn-primary" disabled>Run Benchmark</button>
+        <button id="benchmark-stop" class="btn btn-outline" disabled>Cancel / Release Model</button>
+        <button id="benchmark-download" class="btn btn-accent" disabled>Download JSON Report</button>
+      </div>
+      <p id="benchmark-status" class="mt-2" role="status" aria-live="polite">Ready. No model has been downloaded by this page.</p>
+      <progress id="benchmark-progress" class="benchmark-progress" hidden aria-label="Benchmark progress"></progress>
+      <div class="benchmark-meta"><span id="benchmark-time">Elapsed: —</span><span id="benchmark-backend"></span></div>
+      <div class="benchmark-table-wrap mt-2"><table class="benchmark-table">
+        <thead><tr><th>Profile</th><th>Matched</th><th>Model inputs / scoring requests</th><th>Inference calls</th></tr></thead>
+        <tbody id="live-results"></tbody>
+      </table></div>
+      <details class="local-audit"><summary>Raw report and mismatches</summary><pre id="benchmark-output" class="benchmark-output">No run yet.</pre></details>
+    </section>
+    <section class="card">
+      <h2>Before Publishing Results</h2>
+      <p>Freeze model revisions, prompts and inference properties before independent validation. Report all failures, denominators, distinct input counts, reverse scoring, hardware and CPU/GPU parity. Do not describe a tuned bank or the 24-case prompt-selection set as unseen data.</p>
+      <p>Technical rubric agreement does not establish construct validity, reliability, fairness, or a clinical diagnosis. The instrument’s existing licence and research approvals still apply.</p>
+    </section>
+    <footer class="app-footer"><p>&copy; 2026 Nanade &amp; Dash · 5QS+ Assessment Platform · <a href="model-licenses.html">Third-party model licences</a></p></footer>
+  </main>
+  <script type="module" src="js/benchmarks.js"></script>
+</body>
+</html>

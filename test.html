@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>5QS+ Assessment – Test Interface</title>
   <link rel="stylesheet" href="styles.css" />
+  <script src="js/scoring-client.js"></script>
 </head>
 <body>
 
@@ -415,18 +416,15 @@
 
     // ── Skip / Exit ──
     skipBtn.onclick = function() {
-      if (responses.some(function(r) { return r !== null; })) {
-        localStorage.setItem(testName + '_responses', JSON.stringify(responses));
-      }
+      localStorage.setItem(testName + '_responses', JSON.stringify(responses));
       saveTestDuration();
       goToNextTest();
     };
 
     exitBtn.onclick = function() {
-      if (responses.some(function(r) { return r !== null; })) {
-        localStorage.setItem(testName + '_responses', JSON.stringify(responses));
-      }
+      localStorage.setItem(testName + '_responses', JSON.stringify(responses));
       saveTestDuration();
+      LocalScoring.background().catch(function() {});
       window.location.href = 'results.html';
     };
 
@@ -439,6 +437,8 @@
     }
 
     function goToNextTest() {
+      // Fire-and-forget: scoring continues in the shell's worker during navigation.
+      LocalScoring.background().catch(function() {});
       var idx = testOrder.indexOf(testName);
       var next = testOrder[idx + 1];
       if (next) {

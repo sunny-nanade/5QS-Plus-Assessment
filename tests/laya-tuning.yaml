@@ -1,0 +1,53 @@
+# These are development/calibration candidates. The bank is an exposed regression
+# suite, never an unseen test after tuning. New frozen probes run only after selection.
+report-baseline: {}
+kind-specific:
+  prompts:
+    kinds:
+      likert: {state: 'The participant selected {{response_text}}.'}
+reverse-ensemble:
+  runtime: {decision_ensemble: reverse}
+  prompts:
+    kinds:
+      likert: {state: 'The participant selected {{response_text}}.'}
+cyclic-ensemble:
+  runtime: {decision_ensemble: cyclic}
+  prompts:
+    kinds:
+      likert: {state: 'The participant selected {{response_text}}.'}
+literal-characters:
+  prompts:
+    kinds:
+      iq: {state: 'Reference characters: {{answer_characters}}. Selected characters: {{response_characters}}.'}
+      mcq: {state: 'Reference characters: {{answer_characters}}. Selected characters: {{response_characters}}.'}
+      likert: {state: 'The participant selected {{response_text}}.'}
+  rubrics:
+    iq: {instructions: 'Compare the two character sequences literally. Only identical sequences are right; do not judge mathematical or semantic equivalence.'}
+    mcq: {instructions: 'Compare the two character sequences literally. Only identical sequences are right; do not judge semantic equivalence.'}
+literal-json-v2:
+  prompts:
+    kinds:
+      iq: {state: '{"reference": {{answer}}, "selected": {{response}}}'}
+      mcq: {state: '{"reference": {{answer}}, "selected": {{response}}}'}
+      likert: {state: 'The participant selected {{response_text}}.'}
+  rubrics:
+    iq:
+      instructions: 'Do the reference and selected strings match literally? Ignore only case and surrounding spaces.'
+      options: [{value: 0, text: 'A: the strings are different'}, {value: 1, text: 'B: the strings are identical'}]
+    mcq:
+      instructions: 'Do the reference and selected strings match literally? Ignore only case and surrounding spaces.'
+      options: [{value: 1, text: 'A: the strings are different'}, {value: 5, text: 'B: the strings are identical'}]
+literal-json-reverse:
+  runtime: {decision_ensemble: reverse}
+  prompts:
+    kinds:
+      iq: {state: '{"reference": {{answer}}, "selected": {{response}}}'}
+      mcq: {state: '{"reference": {{answer}}, "selected": {{response}}}'}
+      likert: {state: 'The participant selected {{response_text}}.'}
+  rubrics:
+    iq:
+      instructions: 'Do the reference and selected strings match literally? Ignore only case and surrounding spaces.'
+      options: [{value: 0, text: 'A: the strings are different'}, {value: 1, text: 'B: the strings are identical'}]
+    mcq:
+      instructions: 'Do the reference and selected strings match literally? Ignore only case and surrounding spaces.'
+      options: [{value: 1, text: 'A: the strings are different'}, {value: 5, text: 'B: the strings are identical'}]

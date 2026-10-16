@@ -1,0 +1,32 @@
+/* Additive, opt-in styles. The upstream styles.css palette and layout stay intact. */
+[hidden] { display: none !important; }
+.assessment-shell { margin: 0; height: 100dvh; overflow: hidden; }
+.assessment-shell #assessment-frame { display: block; width: 100%; height: 100%; border: 0; }
+.local-status { padding: 12px 16px; margin: -8px 0 20px; border: 1px solid var(--border-light); border-left: 3px solid var(--accent); border-radius: var(--radius); background: var(--card-bg); }
+.local-status p { margin: 0; font-size: .84rem; color: var(--text-secondary); overflow-wrap: anywhere; }
+.local-status progress { display: block; width: 100%; height: 5px; margin-top: 9px; accent-color: var(--accent); }
+.local-status[data-stage="error"] { border-left-color: var(--danger); }
+.local-small-button { padding: 7px 14px; font-size: .8rem; margin-top: 10px; }
+.local-note { font-size: .84rem; color: var(--text-secondary); }
+.local-audit { margin: 20px 0; padding: 14px 18px; background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); }
+.local-audit summary { cursor: pointer; font-weight: 600; color: var(--primary); }
+.local-audit p { margin: 10px 0 0; font-size: .83rem; overflow-wrap: anywhere; }
+.local-audit code { overflow-wrap: anywhere; }
+.test-detail-section { overflow-x: auto; }
+.chart-container canvas { max-width: 100%; height: auto !important; }
+.local-links { font-size: .8rem; text-align: center; margin-top: 16px; }
+.local-links a { color: var(--accent-dark); margin: 0 8px; }
+.benchmark-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+.benchmark-controls select { margin-bottom: 0; }
+.benchmark-controls label { min-width: 0; }
+.benchmark-table-wrap { overflow-x: auto; }
+.benchmark-table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+.benchmark-table th, .benchmark-table td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border-light); }
+.benchmark-table th { color: var(--primary); background: var(--bg); }
+.benchmark-output { white-space: pre-wrap; overflow-wrap: anywhere; font-size: .78rem; max-height: 420px; overflow: auto; padding: 12px; background: var(--bg); }
+.benchmark-progress { width: 100%; accent-color: var(--accent); height: 8px; }
+.benchmark-meta { display: flex; gap: 10px 24px; flex-wrap: wrap; font-size: .83rem; }
+.benchmark-actions { justify-content: flex-start; }
+.local-error { color: var(--danger); }
+@media (max-width: 600px) { .local-status { padding: 10px 12px; } .benchmark-actions .btn { width: 100%; } .question-table { min-width: 520px; } }
+@media print { .local-status, .local-links, .benchmark-controls, .benchmark-actions { display: none !important; } .local-audit { break-inside: avoid; } }
