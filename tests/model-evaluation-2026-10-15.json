@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-15",
+  "reference": "Agreement with the original deterministic item-point rubric, not human competency ratings or psychometric validity.",
+  "protocol": {
+    "profiles_file": "tests/prompt-variants.yaml",
+    "development_cases": 24,
+    "selection": "Highest development agreement; ties use the first profile in the fixed YAML order.",
+    "bank_cases": 718,
+    "bank_coverage": "Every displayed option of every item in the six question banks, using the selected profile without bank-based prompt retuning.",
+    "max_length": 1024,
+    "head_length": 512,
+    "cpu_threads": 1,
+    "limitations": [
+      "The synthetic set was used to select prompts, not as an unseen accuracy test.",
+      "Bank questions were not used for selection, but many resulting model inputs repeat because question text is omitted.",
+      "The Laya bank evaluation contains 181 distinct requests, not 718 independent model inputs.",
+      "Probabilities have not been calibrated for this assessment.",
+      "There are still scoring errors; research submission remains disabled."
+    ]
+  },
+  "development": [
+    { "profile": "baseline", "julia_matched": 14, "laya_matched": 23 },
+    { "profile": "literal-json", "julia_matched": 16, "laya_matched": 22 },
+    { "profile": "bare-copy", "julia_matched": 15, "laya_matched": 16 },
+    { "profile": "report-phrase", "julia_matched": 16, "laya_matched": 24 },
+    { "profile": "entailment", "julia_matched": 16, "laya_matched": 19 },
+    { "profile": "boolean-equality", "julia_matched": 14, "laya_matched": 23 },
+    { "profile": "binary-score", "julia_matched": 11, "laya_matched": 23 },
+    { "profile": "explicit-rubric", "julia_matched": 6, "laya_matched": 22 }
+  ],
+  "julia": {
+    "model": "SupersonicLabs/Julia-1-ONNX",
+    "revision": "82a2fadf8fccfccdc5fd4e1009ba8f1a265eb7a8",
+    "baseline_config": "tests/julia-scoring.yaml",
+    "selected_profile": "literal-json",
+    "prompt_hash": "5501b8e67b9f3daece6ce2943c5d87cac7ee254fbef9056ac54802416afd69dd",
+    "webgpu": {
+      "matched": 349,
+      "total": 718,
+      "by_dimension": {
+        "iq": { "matched": 82, "total": 124 },
+        "eq": { "matched": 50, "total": 125 },
+        "aq": { "matched": 58, "total": 119 },
+        "sq": { "matched": 50, "total": 125 },
+        "dq": { "matched": 60, "total": 150 },
+        "stress": { "matched": 49, "total": 75 }
+      }
+    }
+  },
+  "laya": {
+    "model": "m1rhan/laya-typed-decisions-ONNX",
+    "revision": "7388ca40228f08fd72fb3d2fdbd29153e9bc63d4",
+    "baseline_config": "tests/laya-scoring.yaml",
+    "selected_profile": "report-phrase",
+    "prompt_hash": "99bbf22a0aa87c5315f59bb5fe045c69cc53fc832edd05a32395573f7e6e8c62",
+    "webgpu": {
+      "matched": 695,
+      "total": 718,
+      "unique_requests": 181,
+      "by_dimension": {
+        "iq": { "matched": 121, "total": 124 },
+        "eq": { "matched": 125, "total": 125 },
+        "aq": { "matched": 99, "total": 119 },
+        "sq": { "matched": 125, "total": 125 },
+        "dq": { "matched": 150, "total": 150 },
+        "stress": { "matched": 75, "total": 75 }
+      }
+    },
+    "wasm": {
+      "matched": 695,
+      "total": 718,
+      "unique_requests": 181,
+      "prompt_hash": "99bbf22a0aa87c5315f59bb5fe045c69cc53fc832edd05a32395573f7e6e8c62",
+      "decision_agreement_with_webgpu": { "matched": 718, "total": 718 },
+      "observed_inference_ms": 391289,
+      "timing_note": "One single-threaded managed Chromium run, after model initialization. Not a general throughput benchmark; the 718 cases reuse 181 distinct requests."
+    }
+  }
+}

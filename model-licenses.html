@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5QS+ – Model Licences &amp; Data Use</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <div class="app-header"><h1>Model Licences &amp; Data Use</h1><p class="subtitle">Attribution, local inference and research safeguards</p></div>
+    <section class="card">
+      <h2>Private On-Device Scoring</h2>
+      <p>The model runs in your browser using WebGPU or CPU/WebAssembly. Questionnaire evidence is not sent to a model service. Model files download from Hugging Face and libraries from a CDN; those hosts receive ordinary download metadata.</p>
+      <p>Model files may be cached locally. Responses and the local result record stay in browser storage for review or retries. Starting a new assessment clears the participant records; clearing browser site data also removes cached models.</p>
+      <p>Research submission is disabled by default. If an authorised researcher enables it in <code>scoring.yaml</code>, participant demographics, summary scores and model/configuration provenance are sent to the existing Google Sheets endpoint.</p>
+    </section>
+    <section class="card">
+      <h2>Laya · Active Model</h2>
+      <p>Original model: <strong>Convai Innovations / Nandakishor M and contributors</strong>. Q4 browser conversion: <strong>m1rhan</strong>.</p>
+      <p><a href="https://huggingface.co/convaiinnovations/laya-typed-decisions">Original typed-decisions checkpoint</a> · <a href="https://huggingface.co/m1rhan/laya-typed-decisions-ONNX/tree/7388ca40228f08fd72fb3d2fdbd29153e9bc63d4">Pinned ONNX conversion</a></p>
+      <p>Both declare <strong>Apache-2.0</strong>. <a href="licenses/Apache-2.0.txt">Read the full licence</a>. We use application-specific prompts and runtime code without modifying the downloaded weights.</p>
+    </section>
+    <section class="card">
+      <h2>Julia-1 · Benchmark Alternative</h2>
+      <p>Original model and ONNX/WASM export: <strong>Supersonic Labs</strong>. Declared licence: <strong>Apache-2.0</strong>.</p>
+      <p><a href="https://huggingface.co/SupersonicLabs/Julia-1-ONNX/tree/82a2fadf8fccfccdc5fd4e1009ba8f1a265eb7a8">Pinned model and encoder</a> · <a href="licenses/Apache-2.0.txt">Full licence</a></p>
+    </section>
+    <section class="card">
+      <h2>Assessment Licence &amp; Research Use</h2>
+      <p>The instrument remains copyright &copy; 2026 Nanade &amp; Dash under <a href="LICENSE">CC BY-NC-ND 4.0</a>. Model licences do not change those terms. Confirm permission to distribute a modified instrument with the rights holders.</p>
+      <p>Technical agreement with a point rubric is not psychometric validation, a clinical diagnosis or proof of fairness. Independent validation and applicable research approvals are needed before publishing participant findings.</p>
+      <p><a href="MODEL_LICENSES.md">Complete model and runtime notices</a> · <a href="benchmarks.html">Benchmark methods and results</a></p>
+    </section>
+    <div class="btn-group"><a href="index.html" class="btn btn-primary">Return to Assessment</a><a href="benchmarks.html" class="btn btn-outline">View Benchmarks</a></div>
+    <footer class="app-footer"><p>&copy; 2026 Nanade &amp; Dash · 5QS+ Assessment Platform</p></footer>
+  </main>
+</body>
+</html>

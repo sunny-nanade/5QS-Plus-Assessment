@@ -1,0 +1,56 @@
+{
+  "schema_version": 3,
+  "date": "2026-10-15",
+  "model": "m1rhan/laya-typed-decisions-ONNX",
+  "revision": "7388ca40228f08fd72fb3d2fdbd29153e9bc63d4",
+  "baseline_config": "tests/laya-v2-scoring.yaml",
+  "executed_baseline_config_hash": "980b06a736cbc523683813b5aa6938d8ae6d57bfcd0582d806f51a2b11e2e5a4",
+  "executed_baseline_note": "The first sweep loaded the then-active V2 scoring.yaml. Its recipe is preserved by laya-v2-scoring.yaml, whose adapter path resolves beside that file. Source-file hashes differ; prompt/rubric semantics match.",
+  "profiles_file": "tests/literature-prompts.yaml",
+  "profiles_file_sha256": "6092426d0cfd340bf5a34aff7083694a2e8a2543612e86fcffee9a010b1e2054",
+  "selected_profile": "nominal-letters",
+  "prompt_hash": "d26c609aa6c14c201871741b9817908f82da4851798953b6e5209395666701ed",
+  "psychological_validity_established": false,
+  "selection_protocol": "Twelve fixed candidates were compared on the exposed bank. Selected nominal-letters over tied nominal-numbers because identifiers are nominal, not ordered ability categories. Recipe was frozen before the first V3 novel-probe run. V3 failure was retained, then explicitly promoted to exposed development data for a separate V4 round; no claim that V3 remains unseen.",
+  "development_total": 718,
+  "development_input_hash": "35ce7f8960060f0d8658c81772944f177a4d92d13aee48cfa3d6dab2f3c1e4a1",
+  "candidates": [
+    {"profile": "v2-control", "matched": 711, "distinct_model_inputs": 176, "inference_calls": 176, "inference_ms": 45156, "prompt_hash": "f7b08a06e9a60262a494ddbf0daa29df42df5486088fe960ccde56d54f5c42c5"},
+    {"profile": "manual-fidelity", "matched": 706, "distinct_model_inputs": 176, "inference_calls": 176, "inference_ms": 46832, "prompt_hash": "ae83619f1e331df63af118a03af83f9804e499c8a16dbe2c41dde127d4c00a32"},
+    {"profile": "contextual-key", "matched": 692, "distinct_model_inputs": 178, "inference_calls": 178, "inference_ms": 46626, "prompt_hash": "e631e646ea129cf7546e5088b1548f7a4f908c6fb08974d55dff1f2a42ca45cb"},
+    {"profile": "record-verification", "matched": 715, "distinct_model_inputs": 176, "inference_calls": 176, "inference_ms": 30861, "prompt_hash": "547a6e21ce0b8c50d3d86986916aca82509b9bb824cadd37499066ecf3d4b4e1"},
+    {"profile": "key-in-question", "matched": 709, "distinct_model_inputs": 176, "inference_calls": 176, "inference_ms": 31129, "prompt_hash": "a2deba794809e6b84228809c4d29d432e3c123ec991ac4988300128bcd1794af"},
+    {"profile": "quoted-match", "matched": 698, "distinct_model_inputs": 176, "inference_calls": 176, "inference_ms": 30816, "prompt_hash": "eca9d4bf6bf0d16266cbfe9d2058e4dcafc430798d3816e4d43f679f44e86545"},
+    {"profile": "nominal-letters", "matched": 718, "distinct_model_inputs": 46, "inference_calls": 58, "inference_ms": 10385, "prompt_hash": "d26c609aa6c14c201871741b9817908f82da4851798953b6e5209395666701ed"},
+    {"profile": "nominal-numbers", "matched": 718, "distinct_model_inputs": 46, "inference_calls": 58, "inference_ms": 10682, "prompt_hash": "2624aedaf9b452d880e0f54e6280e10169c6d43338efe3e7566105c351dcda0d"},
+    {"profile": "nominal-report", "matched": 681, "distinct_model_inputs": 46, "inference_calls": 58, "inference_ms": 10720, "prompt_hash": "a18140363d59c5bb0973599480cd9ba6947e18ae62668577ef7962bc690f4e61"},
+    {"profile": "nominal-manual", "matched": 650, "distinct_model_inputs": 58, "inference_calls": 58, "inference_ms": 10225, "prompt_hash": "ffeda79fd69d0c0e2e6e1400470a82255cd3b5ce1ccc341fb606b25dc85f1608"},
+    {"profile": "nominal-noul", "matched": 689, "distinct_model_inputs": 46, "inference_calls": 58, "inference_ms": 11737, "prompt_hash": "fc31efeec2f13ac1060c94ce1427b2d4f4955a5960d2953ee186885ed590d6ca"},
+    {"profile": "literature-global", "matched": 704, "distinct_model_inputs": 176, "inference_calls": 176, "inference_ms": 51195, "prompt_hash": "fa8c2d747b2bbc3e8d1258f70872d3da5601cb6d35dd5b4e06c59eee91204941"}
+  ],
+  "evaluations": [
+    {"profile": "nominal-letters", "suite": "V3 exposed bank regression", "backend": "webgpu", "matched": 718, "total": 718, "distinct_model_inputs": 46, "unique_requests": 58, "inference_calls": 58},
+    {"profile": "nominal-letters", "suite": "V3 probes, frozen at first run", "backend": "webgpu", "matched": 170, "total": 180, "distinct_model_inputs": 62, "unique_requests": 84, "inference_calls": 84, "inference_ms": 15707,
+      "input_hash": "479ce30c5dc86703ad65501fdc403215989f6f95cb2b5548fa631d4b32882ca0",
+      "by_kind": {"iq": {"matched": 70, "total": 70}, "mcq": {"matched": 70, "total": 70}, "likert": {"matched": 30, "total": 40}}}
+  ],
+  "novel_failures": [
+    {"test": "eq", "index": 3, "response": "Substantial", "expected": 4, "actual": 3},
+    {"test": "eq", "index": 4, "response": "Extreme", "expected": 5, "actual": 4},
+    {"test": "eq", "index": 5, "response": "Absent", "expected": 5, "actual": 3},
+    {"test": "stress", "index": 0, "response": "Absent", "expected": 1, "actual": 3},
+    {"test": "stress", "index": 3, "response": "Substantial", "expected": 4, "actual": 3},
+    {"test": "stress", "index": 4, "response": "Extreme", "expected": 5, "actual": 3},
+    {"test": "stress", "index": 5, "response": "Absent", "expected": 5, "actual": 3},
+    {"test": "stress", "index": 6, "response": "Slight", "expected": 4, "actual": 3},
+    {"test": "stress", "index": 10, "response": "At no time", "expected": 1, "actual": 4},
+    {"test": "stress", "index": 15, "response": "At no time", "expected": 5, "actual": 2}
+  ],
+  "limitations": [
+    "These are technical coding experiments, not independent clinician labels or psychological accuracy.",
+    "The current instrument has probable key errors and nonstandard adapted scale use; perfect reproduction does not repair them.",
+    "Nominal representations compress repeated inputs; 718 cases are only 46 distinct model inputs for the selected V3 recipe.",
+    "Negative V3 generalisation results are retained. V4 is a new adaptive development round, not a retest claimed to be unseen.",
+    "Observed timings are single-browser runs excluding initialization, not hardware-independent performance benchmarks."
+  ]
+}

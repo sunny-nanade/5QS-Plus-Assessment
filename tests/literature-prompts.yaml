@@ -1,0 +1,127 @@
+# V3 development candidates, frozen before the first sweep. All bank and previous
+# probes are exposed development data. Sources constrain scoring fidelity, not
+# unvalidated clinical/competency judgements: docs/PSYCHOLOGY_SCORING_REVIEW.md.
+v2-control: {}
+manual-fidelity:
+  prompts:
+    kinds:
+      iq:
+        instructions: 'Apply the supplied scoring key consistently. This item is not a normed IQ estimate. Do not accept synonyms or invent a better key.'
+      mcq:
+        instructions: 'Apply the supplied scoring key consistently, not your opinion of healthy coping. A different adaptive response is not the keyed option. Do not diagnose or infer a trait.'
+  rubrics:
+    iq: {instructions: 'Is the selected response exactly the keyed response?'}
+    mcq: {instructions: 'Is the selected response exactly the keyed response?'}
+contextual-key:
+  prompts:
+    kinds:
+      iq: {state: 'Item: {{question}}. Published application key: {{answer}}. Recorded response: {{response}}.', instructions: 'Use only the supplied key for scoring; do not solve the question again.'}
+      mcq: {state: 'Domain: {{dimension}} / {{subscale}}. Item: {{question}}. Application key: {{answer}}. Recorded response: {{response}}.', instructions: 'Code the recorded selection against this key, not the desirability of the behaviour. This key requires expert review before psychological interpretation.'}
+  rubrics:
+    iq: {instructions: 'Does the recorded response match the application key literally?'}
+    mcq: {instructions: 'Does the recorded response match the application key literally?'}
+record-verification:
+  prompts:
+    kinds:
+      iq: {state: 'Required entry: {{answer}}. Actual entry: {{response}}.'}
+      mcq: {state: 'Required entry: {{answer}}. Actual entry: {{response}}.'}
+  rubrics:
+    iq:
+      instructions: 'Are the required and actual entries the same text?'
+      options: [{value: 0, text: 'The entries are different.'}, {value: 1, text: 'The entries are identical.'}]
+    mcq:
+      instructions: 'Are the required and actual entries the same text?'
+      options: [{value: 1, text: 'The entries are different.'}, {value: 5, text: 'The entries are identical.'}]
+key-in-question:
+  prompts:
+    kinds:
+      iq: {state: 'The participant selected {{response_text}}.'}
+      mcq: {state: 'The participant selected {{response_text}}.'}
+  rubrics:
+    iq:
+      instructions: 'Did the participant select exactly {{answer}}?'
+      options: [{value: 0, text: 'No, they selected a different response.'}, {value: 1, text: 'Yes, they selected that exact response.'}]
+    mcq:
+      instructions: 'Did the participant select exactly {{answer}}?'
+      options: [{value: 1, text: 'No, they selected a different response.'}, {value: 5, text: 'Yes, they selected that exact response.'}]
+quoted-match:
+  prompts:
+    kinds:
+      iq: {state: 'Key = {{answer}}; response = {{response}}.'}
+      mcq: {state: 'Key = {{answer}}; response = {{response}}.'}
+  rubrics:
+    iq:
+      instructions: 'Compare the two quoted labels, not their meaning.'
+      options: [{value: 0, text: 'Different labels'}, {value: 1, text: 'Same label'}]
+    mcq:
+      instructions: 'Compare the two quoted labels, not their meaning.'
+      options: [{value: 1, text: 'Different labels'}, {value: 5, text: 'Same label'}]
+nominal-letters:
+  prompts:
+    kinds:
+      iq: {state: 'Keyed option: {{answer_slot}}. Selected option: {{response_slot}}.'}
+      mcq: {state: 'Keyed option: {{answer_slot}}. Selected option: {{response_slot}}.'}
+  rubrics:
+    iq:
+      instructions: 'Are the keyed and selected option identifiers identical?'
+      options: [{value: 0, text: 'Different option identifiers'}, {value: 1, text: 'Identical option identifiers'}]
+    mcq:
+      instructions: 'Are the keyed and selected option identifiers identical?'
+      options: [{value: 1, text: 'Different option identifiers'}, {value: 5, text: 'Identical option identifiers'}]
+nominal-numbers:
+  prompts:
+    kinds:
+      iq: {state: 'Reference number: {{answer_position}}. Selected number: {{response_position}}.'}
+      mcq: {state: 'Reference number: {{answer_position}}. Selected number: {{response_position}}.'}
+  rubrics:
+    iq:
+      instructions: 'Are these two option numbers equal? The numbers are identifiers, not ability scores.'
+      options: [{value: 0, text: 'The numbers are different.'}, {value: 1, text: 'The numbers are the same.'}]
+    mcq:
+      instructions: 'Are these two option numbers equal? The numbers are identifiers, not ability scores.'
+      options: [{value: 1, text: 'The numbers are different.'}, {value: 5, text: 'The numbers are the same.'}]
+nominal-report:
+  prompts:
+    kinds:
+      iq: {state: 'The answer key specifies option {{answer_slot}}. The participant selected option {{response_slot}}.'}
+      mcq: {state: 'The answer key specifies option {{answer_slot}}. The participant selected option {{response_slot}}.'}
+  rubrics:
+    iq:
+      instructions: 'Did the participant select the keyed option?'
+      options: [{value: 0, text: 'The participant selected a different option.'}, {value: 1, text: 'The participant selected the keyed option.'}]
+    mcq:
+      instructions: 'Did the participant select the keyed option?'
+      options: [{value: 1, text: 'The participant selected a different option.'}, {value: 5, text: 'The participant selected the keyed option.'}]
+nominal-manual:
+  prompts:
+    kinds:
+      iq: {state: 'The answer key specifies option {{answer_slot}}. The participant selected option {{response_slot}}.', instructions: 'Apply the specified item key uniformly. Do not infer a normed IQ or diagnose the participant.'}
+      mcq: {state: 'The answer key specifies option {{answer_slot}}. The participant selected option {{response_slot}}.', instructions: 'Apply the specified item key uniformly. These are nominal option identifiers, not ordered coping categories. Do not replace the key with your judgement of adaptive coping.'}
+  rubrics:
+    iq:
+      instructions: 'Did the participant select the keyed option?'
+      options: [{value: 0, text: 'The participant selected a different option.'}, {value: 1, text: 'The participant selected the keyed option.'}]
+    mcq:
+      instructions: 'Did the participant select the keyed option?'
+      options: [{value: 1, text: 'The participant selected a different option.'}, {value: 5, text: 'The participant selected the keyed option.'}]
+nominal-noul:
+  prompts:
+    kinds:
+      iq: {state: 'Keyed option: {{answer_slot}}. Selected option: {{response_slot}}.'}
+      mcq: {state: 'Keyed option: {{answer_slot}}. Selected option: {{response_slot}}.'}
+  rubrics:
+    iq:
+      type: noul
+      instructions: 'The selected option identifier is identical to the keyed option identifier.'
+      options: [{value: 0, text: 'false'}, {value: 1, text: 'true'}]
+    mcq:
+      type: noul
+      instructions: 'The selected option identifier is identical to the keyed option identifier.'
+      options: [{value: 1, text: 'false'}, {value: 5, text: 'true'}]
+literature-global:
+  prompts:
+    instructions: 'Apply the supplied questionnaire coding rule faithfully. Preserve self-reports; do not infer latent traits, social desirability, diagnoses or clinical cut-offs from an individual answer. A modified instrument requires independent validation.'
+    kinds:
+      iq: {instructions: 'Compare the response with the supplied key, not a synonym.'}
+      mcq: {instructions: 'Compare the response with the supplied key, not a judgement about coping.'}
+      likert: {instructions: 'Identify the recorded response exactly. Candidate labels already encode reversal; do not reverse twice.'}

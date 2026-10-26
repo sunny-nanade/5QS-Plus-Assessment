@@ -1,0 +1,59 @@
+{
+  "schema_version": 4,
+  "date": "2026-10-15",
+  "model": "m1rhan/laya-typed-decisions-ONNX",
+  "revision": "7388ca40228f08fd72fb3d2fdbd29153e9bc63d4",
+  "baseline_config": "tests/laya-v2-scoring.yaml",
+  "baseline_config_hash": "2483afab005ec6b134ff1f45ab87d8b64d4cef37b1aba32711a70860ae1338fd",
+  "base_profile": "nominal-letters",
+  "profiles_file": "tests/category-prompts.yaml",
+  "profiles_file_sha256": "b0414fc9296f18afcc12176ea071715d42a42b7589e6f77fc0c084696f05cfa1",
+  "selected_profile": "category-manual",
+  "active_config_hash": "89f6c528cd13668ed27348011e92e1831f6236a7ebe82d37a0e65fc0396ef2e1",
+  "prompt_hash": "744f9b2d943489ef773a48a44ca6ae7966029b570fc318b06f8e7cd18161e6d0",
+  "rubric_version": "laya-category-manual-v4",
+  "decision_ensemble": "none",
+  "psychological_validity_established": false,
+  "selection_protocol": "After retaining the V3 generalisation failure, explicitly combined the bank plus exposed V2/V3 probes as development data. Compared six predefined category-mapping candidates. Selected category-manual among four perfect ties because it states the reviewed self-report/reverse-coding constraints explicitly. Froze it before running the 414-case V4 probes. No further prompt tuning follows that result in this round.",
+  "development_total": 986,
+  "development_input_hash": "c99e350d20a7181652aef77b090a5d3521d131c58e155e6f71d01f673cc3f47e",
+  "candidates": [
+    {"profile": "v3-control", "matched": 975, "distinct_model_inputs": 138, "unique_requests": 164, "inference_calls": 164, "inference_ms": 30522, "prompt_hash": "d26c609aa6c14c201871741b9817908f82da4851798953b6e5209395666701ed"},
+    {"profile": "category-report", "matched": 971, "distinct_model_inputs": 48, "unique_requests": 74, "inference_calls": 74, "inference_ms": 13593, "prompt_hash": "8b714f49449f8e3a13e6e2ef340f1473c8cf3acb44118b371d9d8f3f439d0030"},
+    {"profile": "category-short", "matched": 986, "distinct_model_inputs": 48, "unique_requests": 74, "inference_calls": 74, "inference_ms": 13893, "prompt_hash": "30ba3b47a61523a4339386f2ecb6183fa6ebf654eda0ae84fc80506113624d4f"},
+    {"profile": "category-numbers", "matched": 986, "distinct_model_inputs": 48, "unique_requests": 74, "inference_calls": 74, "inference_ms": 14350, "prompt_hash": "e0db2ffa0863fca481f82a5c355410c87dc81789158b1e384a307a98fcaed870"},
+    {"profile": "category-manual", "matched": 986, "distinct_model_inputs": 48, "unique_requests": 74, "inference_calls": 74, "inference_ms": 12924, "prompt_hash": "744f9b2d943489ef773a48a44ca6ae7966029b570fc318b06f8e7cd18161e6d0"},
+    {"profile": "category-ordinal", "matched": 986, "distinct_model_inputs": 48, "unique_requests": 74, "inference_calls": 74, "inference_ms": 13968, "prompt_hash": "d2d686677b408d9ad8cb97e1d5bcf3d4f3cf8d50e5baa33e9c5e2079e90de1b3"}
+  ],
+  "evaluations": [
+    {"profile": "category-manual", "suite": "V4 exposed development (bank + V2/V3 probes)", "backend": "webgpu", "matched": 986, "total": 986, "distinct_model_inputs": 48, "unique_requests": 74, "inference_calls": 74, "input_hash": "c99e350d20a7181652aef77b090a5d3521d131c58e155e6f71d01f673cc3f47e"},
+    {"profile": "category-manual", "suite": "V4 exposed bank subset", "backend": "webgpu", "matched": 718, "total": 718, "distinct_model_inputs": 31, "unique_requests": 43, "input_hash": "35ce7f8960060f0d8658c81772944f177a4d92d13aee48cfa3d6dab2f3c1e4a1", "derivation": "The 718 bank cases are a subset of the 986-case development execution, not a second independent GPU run. Counts recomputed for the bank alone."},
+    {"profile": "category-manual", "suite": "V4 exposed bank regression", "backend": "wasm", "matched": 718, "total": 718, "distinct_model_inputs": 31, "unique_requests": 43, "inference_calls": 43, "inference_ms": 131805,
+      "input_hash": "35ce7f8960060f0d8658c81772944f177a4d92d13aee48cfa3d6dab2f3c1e4a1", "prompt_hash": "744f9b2d943489ef773a48a44ca6ae7966029b570fc318b06f8e7cd18161e6d0",
+      "config_hash": "89f6c528cd13668ed27348011e92e1831f6236a7ebe82d37a0e65fc0396ef2e1", "decision_agreement_with_webgpu": {"matched": 718, "total": 718}},
+    {"profile": "category-manual", "suite": "V4 probes, frozen before selection", "backend": "webgpu", "matched": 412, "total": 414, "distinct_model_inputs": 64, "unique_requests": 108, "inference_calls": 108, "inference_ms": 31508, "input_hash": "1cecf39afd5d40bfb4c21286f20b6a0ef3af94a8ce3db1aea84dc92d57158db4",
+      "by_kind": {"iq": {"matched": 81, "total": 82}, "mcq": {"matched": 81, "total": 82}, "likert": {"matched": 250, "total": 250}}}
+  ],
+  "novel_failures": [
+    {"test": "iq", "index": 68, "response": "Unseen record Ω-20-4-13", "expected": 1, "actual": 0},
+    {"test": "aq", "index": 68, "response": "Unseen record Ω-20-4-13", "expected": 5, "actual": 1}
+  ],
+  "failure_note": "The two failed cases share one canonical input: keyed N, selected N (displayed position 14 in a 20-option item). The assessment currently uses four-option MCQs. No post-probe special case or prompt repair is applied.",
+  "v4_probe_overlap": {
+    "note": "Novel fixture wording is not necessarily a new model input after nominal encoding. Compare canonical rows, not text labels or case counts.",
+    "distinct_inputs_seen_in_development": 31,
+    "distinct_inputs_not_seen_in_development": 33,
+    "cases_with_seen_inputs": {"matched": 312, "total": 312},
+    "cases_with_new_inputs": {"matched": 100, "total": 102},
+    "new_distinct_input_decisions": {"matched": 32, "total": 33}
+  },
+  "limitations": [
+    "Coding agreement is not literature-adjudicated psychological accuracy, construct validity, calibrated probability or a clinical diagnosis.",
+    "The original bank remains exposed and contains probable key/instrument defects documented separately. High agreement can reproduce those defects.",
+    "Nominal encoding is deterministic input representation, not model-derived psychological knowledge. The model still selects every point decision.",
+    "986 development cases compress to 48 distinct model inputs; 414 novel cases compress to 64. Neither case count is an independent sample size.",
+    "V4 is an adaptive follow-up to a failed V3 probe. Both rounds and denominators must be reported; do not present only the successful round as a preregistered external study.",
+    "Timings are single-browser observations after initialization. No general hardware performance or zero-wait guarantee is made.",
+    "Fine-tuning was not performed. Training requires lawful data, reviewed labels and independent validation; research submission remains disabled."
+  ]
+}

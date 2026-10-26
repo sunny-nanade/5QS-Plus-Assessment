@@ -11,7 +11,7 @@
   <div class="container" style="display:flex; justify-content:center; align-items:center; min-height:80vh;">
     <div class="card text-center" style="max-width:600px;">
       <h1 style="font-size:2rem; margin-bottom:16px;">Thank You!</h1>
-      <p style="font-size:1.1rem;">Your 5QS+ Assessment results have been submitted successfully.</p>
+      <p style="font-size:1.1rem;">Your 5QS+ Assessment is complete. Check the results page's sync status for submission details.</p>
       <p>
         A summary of your scores was displayed on the results page. If you need a copy,
         please contact <a href="mailto:sunny4qs@gmail.com">sunny4qs@gmail.com</a>.
@@ -24,7 +24,7 @@
         Redirecting to home page in <span id="countdown" style="font-weight:700; color:var(--primary);">20</span> seconds...
       </p>
       <div class="mt-2">
-        <a href="index.html" class="btn btn-primary">Return to Home</a>
+        <a href="index.html" target="_top" class="btn btn-primary">Return to Home</a>
       </div>
     </div>
   </div>
@@ -41,7 +41,7 @@
       countdownEl.textContent = timeLeft;
       if (timeLeft <= 0) {
         clearInterval(interval);
-        window.location.href = 'index.html';
+        window.top.location.href = 'index.html';
       }
     }, 1000);
   </script>

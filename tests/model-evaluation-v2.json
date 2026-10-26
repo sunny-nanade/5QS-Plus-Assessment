@@ -1,0 +1,104 @@
+{
+  "schema_version": 2,
+  "date": "2026-10-15",
+  "model": "m1rhan/laya-typed-decisions-ONNX",
+  "revision": "7388ca40228f08fd72fb3d2fdbd29153e9bc63d4",
+  "selected_profile": "kind-specific",
+  "prompt_hash": "f7b08a06e9a60262a494ddbf0daa29df42df5486088fe960ccde56d54f5c42c5",
+  "baseline_config": "tests/laya-tuning-baseline.yaml",
+  "properties_file": "tests/laya-tuning.yaml",
+  "decision_ensemble": "none",
+  "request_count_note": "unique_requests counts cached scoring requests (row plus point mapping). distinct_model_inputs counts canonical rows without the point mapping; neither denominator implies statistically independent observations.",
+  "calibration_counts": {"cases": 50, "unique_requests": 50, "distinct_model_inputs": 42},
+  "selection_protocol": "Compared fixed candidates on the 50-case synthetic calibration set and the already-exposed question-bank regression set. Selected single-pass kind-specific prompts over tied reverse-order averaging to avoid doubling inference cost. Froze the recipe before running the novel probes, and did not retune after their result.",
+  "calibration": [
+    {"profile": "report-baseline", "matched": 50, "total": 50, "inference_calls": 50},
+    {"profile": "kind-specific", "matched": 50, "total": 50, "inference_calls": 50},
+    {"profile": "reverse-ensemble", "matched": 50, "total": 50, "inference_calls": 100},
+    {"profile": "cyclic-ensemble", "matched": 49, "total": 50, "inference_calls": 190},
+    {"profile": "literal-characters", "matched": 46, "total": 50, "inference_calls": 50},
+    {"profile": "literal-json-v2", "matched": 48, "total": 50, "inference_calls": 50},
+    {"profile": "literal-json-reverse", "matched": 48, "total": 50, "inference_calls": 100}
+  ],
+  "evaluations": [
+    {
+      "profile": "kind-specific",
+      "suite": "Exposed bank regression v2",
+      "backend": "webgpu",
+      "matched": 711,
+      "total": 718,
+      "unique_requests": 176,
+      "distinct_model_inputs": 176,
+      "inference_calls": 176,
+      "input_hash": "35ce7f8960060f0d8658c81772944f177a4d92d13aee48cfa3d6dab2f3c1e4a1",
+      "by_dimension": {
+        "iq": {"matched": 121, "total": 124},
+        "eq": {"matched": 125, "total": 125},
+        "aq": {"matched": 115, "total": 119},
+        "sq": {"matched": 125, "total": 125},
+        "dq": {"matched": 150, "total": 150},
+        "stress": {"matched": 75, "total": 75}
+      }
+    },
+    {
+      "profile": "reverse-ensemble",
+      "suite": "Exposed bank regression v2",
+      "backend": "webgpu",
+      "matched": 711,
+      "total": 718,
+      "unique_requests": 176,
+      "distinct_model_inputs": 176,
+      "inference_calls": 352
+    },
+    {
+      "profile": "kind-specific",
+      "suite": "Exposed bank regression v2",
+      "backend": "wasm",
+      "matched": 711,
+      "total": 718,
+      "unique_requests": 176,
+      "distinct_model_inputs": 176,
+      "inference_calls": 176,
+      "input_hash": "35ce7f8960060f0d8658c81772944f177a4d92d13aee48cfa3d6dab2f3c1e4a1",
+      "prompt_hash": "f7b08a06e9a60262a494ddbf0daa29df42df5486088fe960ccde56d54f5c42c5",
+      "decision_agreement_with_webgpu": {"matched": 718, "total": 718},
+      "observed_inference_ms": 387703,
+      "timing_note": "One single-threaded managed Chromium run after initialization; repeated input requests are deduplicated. Not a general hardware throughput claim."
+    },
+    {
+      "profile": "kind-specific",
+      "suite": "Frozen novel probes v2 (not used for selection)",
+      "backend": "webgpu",
+      "matched": 87,
+      "total": 88,
+      "unique_requests": 88,
+      "distinct_model_inputs": 64,
+      "inference_calls": 88,
+      "input_hash": "975737ef1fabfac334eb50315407844c29697b939b4d40e3740dec492ea4e16f",
+      "by_dimension": {
+        "iq": {"matched": 24, "total": 24},
+        "aq": {"matched": 24, "total": 24},
+        "eq": {"matched": 20, "total": 20},
+        "stress": {"matched": 19, "total": 20}
+      },
+      "failure": {"dimension": "stress", "response": "Not once", "reverse": true, "expected": 5, "actual": 1}
+    }
+  ],
+  "bank_failures": [
+    {"test": "iq", "flattened_case_index": 23, "response": "Cannot say", "expected": 0, "actual": 1},
+    {"test": "iq", "flattened_case_index": 61, "response": "₹300", "expected": 1, "actual": 0},
+    {"test": "iq", "flattened_case_index": 67, "response": "Right", "expected": 0, "actual": 1},
+    {"test": "aq", "flattened_case_index": 5, "response": "Take some responsibility", "expected": 1, "actual": 5},
+    {"test": "aq", "flattened_case_index": 26, "response": "Try new strategies", "expected": 1, "actual": 5},
+    {"test": "aq", "flattened_case_index": 38, "response": "Ask for help", "expected": 1, "actual": 5},
+    {"test": "aq", "flattened_case_index": 57, "response": "Look for solutions", "expected": 1, "actual": 5}
+  ],
+  "limitations": [
+    "Reference labels are deterministic point-rubric outputs, not participant competency labels.",
+    "The bank has been inspected and tuned against; its agreement is not unseen test accuracy.",
+    "Repeated bank response patterns are not independent observations.",
+    "The novel set is synthetic and fixed before this tuning run, not an externally preregistered or human validation study.",
+    "Seven bank errors and one novel-probe error remain. No post-probe tuning was performed.",
+    "Probabilities are uncalibrated for this application. Research submission stays disabled."
+  ]
+}

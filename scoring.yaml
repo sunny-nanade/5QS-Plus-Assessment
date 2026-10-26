@@ -1,0 +1,82 @@
+# Trusted application configuration, not participant input. Reload the assessment
+# after editing. Any change invalidates cached decisions via a SHA-256 digest.
+version: 1
+rubric_version: laya-category-manual-v4
+# Enable only after validating the chosen model/prompts for research use.
+# A prompt-development check is not psychometric validation.
+submission:
+  enabled: false
+model:
+  # Apache-2.0 checkpoint/conversion; attribution and full text: MODEL_LICENSES.md.
+  # Laya family, typed-decisions checkpoint, community Q4 ONNX conversion.
+  id: m1rhan/laya-typed-decisions-ONNX
+  revision: 7388ca40228f08fd72fb3d2fdbd29153e9bc63d4
+  adapter: ./js/laya-engine.js
+  encoding: laya-js
+  # Asset URLs default to https://huggingface.co/{id}/resolve/{revision}/.
+  # To self-host, optionally add: base_url: https://your-host/models/laya/
+  files:
+    graph: onnx/model_q4.onnx
+    tokenizer: tokenizer.json
+    tokenizer_config: tokenizer_config.json
+runtime:
+  preferred_device: webgpu
+  cpu_fallback: true
+  cache_downloads: true
+  download_timeout_ms: 600000
+  max_length: 1024
+  head_length: 512
+  # Single-threaded WASM also works on GitHub Pages without COOP/COEP headers.
+  cpu_threads: 1
+  # Reverse/cyclic order averaging was tested but did not improve bank agreement.
+  decision_ensemble: none
+  decision_temperature: 1
+prompts:
+  instructions: Read the participant's recorded words, not their meaning.
+  state: 'The participant selected {{response_text}}.'
+  # Optional per-dimension instructions/state overrides; keys are
+  # iq, eq, aq, sq, dq, stress. Global instructions are always included.
+  dimensions:
+    iq:
+      state: |-
+        The reference is {{answer}}. The selected answer is {{response}}.
+    aq:
+      state: |-
+        The reference is {{answer}}. The selected answer is {{response}}.
+    stress:
+      instructions: This is a recorded questionnaire response, not a clinical diagnosis.
+  kinds:
+    # Preserve nominal category identity; the candidate mapping already contains
+    # the configured direction. Do not interpret anchor wording or reverse twice.
+    likert:
+      state: 'Recorded category: {{response_slot}}.'
+      instructions: 'Preserve the recorded self-report. The candidates already encode reverse scoring; do not reverse twice or judge what the participant should have selected.'
+    # Independently encode the two displayed option identities. These are not
+    # correctness flags or psychological categories; Laya compares the records.
+    # Psychology source review: docs/PSYCHOLOGY_SCORING_REVIEW.md.
+    iq:
+      state: 'Keyed option: {{answer_slot}}. Selected option: {{response_slot}}.'
+    mcq:
+      state: 'Keyed option: {{answer_slot}}. Selected option: {{response_slot}}.'
+rubrics:
+  iq:
+    type: choice
+    instructions: Are the keyed and selected option identifiers identical?
+    options:
+      - { value: 0, text: 'Different option identifiers' }
+      - { value: 1, text: 'Identical option identifiers' }
+  mcq:
+    type: choice
+    instructions: Are the keyed and selected option identifiers identical?
+    options:
+      - { value: 1, text: 'Different option identifiers' }
+      - { value: 5, text: 'Identical option identifiers' }
+  likert:
+    type: choice
+    instructions: Which category was recorded?
+    options:
+      - { value: 1, text: 'Category {{point_1_slot}}' }
+      - { value: 2, text: 'Category {{point_2_slot}}' }
+      - { value: 3, text: 'Category {{point_3_slot}}' }
+      - { value: 4, text: 'Category {{point_4_slot}}' }
+      - { value: 5, text: 'Category {{point_5_slot}}' }

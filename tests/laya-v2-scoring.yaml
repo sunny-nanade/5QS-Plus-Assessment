@@ -1,0 +1,47 @@
+# Frozen V2 recipe, kept for V3 comparisons. Adapter resolves beside this file.
+version: 1
+rubric_version: laya-kind-specific-v2
+submission: {enabled: false}
+model:
+  id: m1rhan/laya-typed-decisions-ONNX
+  revision: 7388ca40228f08fd72fb3d2fdbd29153e9bc63d4
+  adapter: ../js/laya-engine.js
+  encoding: laya-js
+  files: {graph: onnx/model_q4.onnx, tokenizer: tokenizer.json, tokenizer_config: tokenizer_config.json}
+runtime:
+  preferred_device: webgpu
+  cpu_fallback: true
+  cache_downloads: true
+  download_timeout_ms: 600000
+  max_length: 1024
+  head_length: 512
+  cpu_threads: 1
+  decision_ensemble: none
+  decision_temperature: 1
+prompts:
+  instructions: Read the participant's recorded words, not their meaning.
+  state: 'The participant selected {{response_text}}.'
+  dimensions:
+    iq: {state: 'The reference is {{answer}}. The selected answer is {{response}}.'}
+    aq: {state: 'The reference is {{answer}}. The selected answer is {{response}}.'}
+    stress: {instructions: 'This is a recorded questionnaire response, not a clinical diagnosis.'}
+  kinds:
+    likert: {state: 'The participant selected {{response_text}}.'}
+rubrics:
+  iq:
+    type: choice
+    instructions: Compare the selected answer to the reference.
+    options: [{value: 0, text: 'The selected answer is wrong.'}, {value: 1, text: 'The selected answer is right.'}]
+  mcq:
+    type: choice
+    instructions: Compare the selected answer to the reference.
+    options: [{value: 1, text: 'The selected answer is wrong.'}, {value: 5, text: 'The selected answer is right.'}]
+  likert:
+    type: choice
+    instructions: Which statement repeats the participant's selection?
+    options:
+      - {value: 1, text: 'The participant selected {{point_1_response}}.'}
+      - {value: 2, text: 'The participant selected {{point_2_response}}.'}
+      - {value: 3, text: 'The participant selected {{point_3_response}}.'}
+      - {value: 4, text: 'The participant selected {{point_4_response}}.'}
+      - {value: 5, text: 'The participant selected {{point_5_response}}.'}

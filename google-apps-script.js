@@ -25,7 +25,10 @@ var FIVEQS_HEADERS = [
   'DQ Score (%)', 'DQ Items', 'DQ AI Literacy (%)',
   'DQ Data Analytics (%)', 'DQ Digital Ethics (%)',
   'DQ Cyber Awareness (%)', 'Stress Score (%)', 'Stress Items',
-  '5QS+ Composite', 'Total Duration (sec)'
+  '5QS+ Composite', 'Total Duration (sec)',
+  'Scoring Method', 'Scoring Model', 'Scoring Model Revision',
+  'Scoring Config SHA-256', 'Scoring Backend', 'Scoring Rubric Version',
+  'Scoring Input SHA-256', 'Scored At'
 ];
 
 /**
@@ -68,6 +71,19 @@ function handle5QSPlus(data) {
       .setBackground('#0F2B46')
       .setFontColor('#FFFFFF');
     sheet.setFrozenRows(1);
+  } else {
+    // Append new audit headers to an existing 28-column sheet without altering
+    // prior responses. Refuse incompatible headers instead of overwriting them.
+    var existingCount = sheet.getLastColumn();
+    var existingHeaders = existingCount ? sheet.getRange(1, 1, 1, existingCount).getValues()[0] : [];
+    if (existingCount > FIVEQS_HEADERS.length || existingHeaders.some(function(header, i) {
+      return header !== FIVEQS_HEADERS[i];
+    })) throw new Error('5QS+ sheet headers differ from the expected schema; migrate them before submitting.');
+    if (existingCount < FIVEQS_HEADERS.length) {
+      sheet.getRange(1, existingCount + 1, 1, FIVEQS_HEADERS.length - existingCount)
+        .setValues([FIVEQS_HEADERS.slice(existingCount)])
+        .setFontWeight('bold').setBackground('#0F2B46').setFontColor('#FFFFFF');
+    }
   }
 
   var row = [
@@ -98,7 +114,15 @@ function handle5QSPlus(data) {
     data.stress || 0,
     data.stress_items || 0,
     data.fiveqs_plus || 0,
-    data.total_duration_sec || 0
+    data.total_duration_sec || 0,
+    data.scoring_method || 'legacy-fixed-rules',
+    data.scoring_model || '',
+    data.scoring_revision || '',
+    data.scoring_config_hash || '',
+    data.scoring_backend || '',
+    data.scoring_rubric_version || '',
+    data.scoring_input_hash || '',
+    data.scored_at || ''
   ];
 
   sheet.appendRow(row);
